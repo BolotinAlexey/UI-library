@@ -1,0 +1,69 @@
+@set-colors: #007bff, #28a745, #ffc107, #dc3545, #f8f9fa ,#6c757d, #343a40;
+@set-names: primary,success,warning, danger, light,secondary,dark ;
+@set-sizes: small,normal,large;
+
+.mix1(@i){
+  @color: extract(@set-colors, @i);
+  @name: extract(@set-names, @i);
+  @font-color : contrast(@color);
+  @focus-hover-color: darken(@color,20%);
+}
+
+.mix2{
+  background-color: @color;
+  color: @font-color;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+
+  &:active{
+    transform: scale(1.1);
+    filter: saturate(200%);
+  }
+  &:hover,
+  &:focus
+  {
+    background-color:@focus-hover-color;
+    cursor: pointer;
+  }
+}
+
+.color-generator(@i: 1) when (@i <= length(@set-colors)) {
+
+  .mix1(@i);
+
+  .mybtn-@{name} {
+    margin: 2px 0;
+    border-radius: 4px;
+    padding: .6em 1.4em;
+    .mix2;
+  }
+
+  .color-generator(@i + 1);
+}
+
+
+.color-generator2(@i , @j) when (@i <= length(@set-colors)) {
+  .mix1(@i);
+  @size: extract(@set-sizes, @j);
+
+  .mybtn-@{name}-@{size} {
+    @k: 2 - @j;
+    padding: (.6em+@k*.2) (1.4em+@k*.5em);
+    //font-size: ( 1rem - @k *.1);
+    margin: (3px - 2*@k) 0;
+    border-radius: (4px - 2*@k);
+    .mix2;
+  }
+  .color-generator2(@i + 1,@j)
+}
+
+.size-generator (@z:1) when (@z <= length(@set-sizes)){
+
+  .color-generator2(1,@z);
+  .size-generator(@z + 1);
+}
+
+.color-generator();
+
+.size-generator();
