@@ -1,0 +1,34 @@
+
+
+
+.conteiner {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  flex-wrap: wrap;
+}
+
+.generate-column(@i: 1) when (@i =< 12) {
+  .col-@{i} {
+    color: aqua;
+    background-color: aqua;
+    @w: @i * (100% / 12);
+    margin: 5px;
+    flex: 0 0 (@w - 10px);
+    max-width: (@w - 10px);
+  }
+
+  .generate-column(@i + 1);
+}
+
+.generate-column();
