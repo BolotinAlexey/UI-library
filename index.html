@@ -6,17 +6,32 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>example grid</title>
-  <link rel="stylesheet/less" type="text/css" href="styles/grid.less" />
-  <link rel="stylesheet" type="text/css" href="styles/grid.css" />
-  <link rel="stylesheet/less" type="text/css" href="styles/button.less" />
-  <link rel="stylesheet" type="text/css" href="styles/button.css" />
+  <link rel="stylesheet/less" type="text/css" href="styles/grid.less"/>
+  <link rel="stylesheet" type="text/css" href="styles/grid.css"/>
+  <link rel="stylesheet/less" type="text/css" href="styles/button.less"/>
+  <link rel="stylesheet" type="text/css" href="styles/button.css"/>
   <link rel="stylesheet" href="styles/modal.less">
   <link rel="stylesheet" href="styles/modal.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+  <link rel="stylesheet" href="styles/burger.less">
+  <link rel="stylesheet" href="styles/burger.css">
+  <script src="https://kit.fontawesome.com/14fb9e47fb.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-
+<nav>
+  <div class="logo"><img src="assets/logo.png"></div>
+  <div class="burger">
+    <button><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="x">
+    <button><i>X</i></button>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="link1">Пункт 1</a></li>
+    <li><a href="link2">Пункт 2</a></li>
+    <li><a href="link2">Пункт 3</a></li>
+  </ul>
+</nav>
 <div class="buttons">
   <button class="modal-trigger" data-target="send1">Отправить1</button>
   <button class="modal-trigger" data-target="send2">Отправить2</button>
@@ -140,7 +155,11 @@
   3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
   <button class="modal-close">Понятно</button>
   <button class="modal-close">Ok</button>
+  <script src="styles/burger.js"></script>
 </div>
+
 <script src="styles/modal.js"></script>
+</div>
+
 </body>
 </html>
