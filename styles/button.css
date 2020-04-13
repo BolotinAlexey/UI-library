@@ -148,7 +148,7 @@
   cursor: pointer;
 }
 .mybtn-primary-small {
-  padding: 0.8em 1.9em;
+  padding: 0.4em 0.9em;
   margin: 1px 0;
   border-radius: 2px;
   background-color: #007bff;
@@ -167,7 +167,7 @@
   cursor: pointer;
 }
 .mybtn-success-small {
-  padding: 0.8em 1.9em;
+  padding: 0.4em 0.9em;
   margin: 1px 0;
   border-radius: 2px;
   background-color: #28a745;
@@ -186,7 +186,7 @@
   cursor: pointer;
 }
 .mybtn-warning-small {
-  padding: 0.8em 1.9em;
+  padding: 0.4em 0.9em;
   margin: 1px 0;
   border-radius: 2px;
   background-color: #ffc107;
@@ -205,7 +205,7 @@
   cursor: pointer;
 }
 .mybtn-danger-small {
-  padding: 0.8em 1.9em;
+  padding: 0.4em 0.9em;
   margin: 1px 0;
   border-radius: 2px;
   background-color: #dc3545;
@@ -224,7 +224,7 @@
   cursor: pointer;
 }
 .mybtn-light-small {
-  padding: 0.8em 1.9em;
+  padding: 0.4em 0.9em;
   margin: 1px 0;
   border-radius: 2px;
   background-color: #f8f9fa;
@@ -243,7 +243,7 @@
   cursor: pointer;
 }
 .mybtn-secondary-small {
-  padding: 0.8em 1.9em;
+  padding: 0.4em 0.9em;
   margin: 1px 0;
   border-radius: 2px;
   background-color: #6c757d;
@@ -262,7 +262,7 @@
   cursor: pointer;
 }
 .mybtn-dark-small {
-  padding: 0.8em 1.9em;
+  padding: 0.4em 0.9em;
   margin: 1px 0;
   border-radius: 2px;
   background-color: #343a40;
@@ -414,7 +414,7 @@
   cursor: pointer;
 }
 .mybtn-primary-large {
-  padding: 0.4em 0.9em;
+  padding: 0.8em 1.9em;
   margin: 5px 0;
   border-radius: 6px;
   background-color: #007bff;
@@ -433,7 +433,7 @@
   cursor: pointer;
 }
 .mybtn-success-large {
-  padding: 0.4em 0.9em;
+  padding: 0.8em 1.9em;
   margin: 5px 0;
   border-radius: 6px;
   background-color: #28a745;
@@ -452,7 +452,7 @@
   cursor: pointer;
 }
 .mybtn-warning-large {
-  padding: 0.4em 0.9em;
+  padding: 0.8em 1.9em;
   margin: 5px 0;
   border-radius: 6px;
   background-color: #ffc107;
@@ -471,7 +471,7 @@
   cursor: pointer;
 }
 .mybtn-danger-large {
-  padding: 0.4em 0.9em;
+  padding: 0.8em 1.9em;
   margin: 5px 0;
   border-radius: 6px;
   background-color: #dc3545;
@@ -490,7 +490,7 @@
   cursor: pointer;
 }
 .mybtn-light-large {
-  padding: 0.4em 0.9em;
+  padding: 0.8em 1.9em;
   margin: 5px 0;
   border-radius: 6px;
   background-color: #f8f9fa;
@@ -509,7 +509,7 @@
   cursor: pointer;
 }
 .mybtn-secondary-large {
-  padding: 0.4em 0.9em;
+  padding: 0.8em 1.9em;
   margin: 5px 0;
   border-radius: 6px;
   background-color: #6c757d;
@@ -528,7 +528,7 @@
   cursor: pointer;
 }
 .mybtn-dark-large {
-  padding: 0.4em 0.9em;
+  padding: 0.8em 1.9em;
   margin: 5px 0;
   border-radius: 6px;
   background-color: #343a40;

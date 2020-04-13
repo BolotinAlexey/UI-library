@@ -1,11 +1,12 @@
-.shift{
+.shift {
   transform: translate(-50%, -50%);
   position: fixed;
   left: 50%;
 }
-
 .modal {
-  .shift;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  left: 50%;
   top: 50%;
   background: wheat;
   z-index: 100;
@@ -13,18 +14,17 @@
   border: 3px double cornflowerblue;
   padding: 5%;
 }
-
 .modal button {
   display: inline-block;
   margin-right: 10px;
   margin-top: 10px;
 }
-
 .buttons {
-  .shift;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  left: 50%;
   top: 5%;
 }
-
 .x {
   position: absolute;
   font-weight: bold;
