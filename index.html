@@ -11,8 +11,26 @@
   <link rel="stylesheet/less" type="text/css" href="styles/button.less" />
   <link rel="stylesheet" type="text/css" href="styles/button.css" />
   <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
+  <link rel="stylesheet" href="styles/burger.less">
+  <link rel="stylesheet" href="styles/burger.css">
+  <script src="https://kit.fontawesome.com/14fb9e47fb.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+<nav>
+  <div class="logo"><img src="assets/logo.png"></div>
+  <div class="burger">
+    <button><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="x">
+    <button><i>X</i></button>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="link1">Пункт 1</a></li>
+    <li><a href="link2">Пункт 2</a></li>
+    <li><a href="link2">Пункт 3</a></li>
+  </ul>
+</nav>
 <div class="container">
   <div class="row">
     <div class="col-1">1</div>
@@ -122,5 +140,8 @@
   <div class="mybtn-light">@</div>
   <div class="mybtn-dark">@</div>
 </div>
+
+
+<script src="styles/burger.js"></script>
 </body>
 </html>
