@@ -11,6 +11,9 @@
   <link rel="stylesheet/less" type="text/css" href="styles/button.less" />
   <link rel="stylesheet" type="text/css" href="styles/button.css" />
   <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
+  <link rel="stylesheet" href="styles/carousel.less">
+  <link rel="stylesheet" href="styles/carousel.css">
+  <script src="styles/carousel.js"></script>
 </head>
 <body>
 <div class="container">
@@ -122,5 +125,15 @@
   <div class="mybtn-light">@</div>
   <div class="mybtn-dark">@</div>
 </div>
+
+
+
+<div id="carousel1"></div>
+<script>
+  const config1 = ["https://loremflickr.com/320/240/dog", "https://loremflickr.com/320/240/cat", "https://loremflickr.com/320/240/horse","https://loremflickr.com/320/240/men"];
+  Carousel("carousel1", config1);
+  src="carousel.js"
+</script>
+
 </body>
 </html>
