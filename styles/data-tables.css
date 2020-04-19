@@ -1,0 +1,25 @@
+#usersTable {
+  margin: 10px;
+}
+table {
+  display: table;
+  border-collapse: collapse;
+}
+.align-right {
+  text-align: right;
+}
+th {
+  font-style: italic;
+  font-size: large;
+  background-color: aquamarine;
+}
+td {
+  color: darkblue;
+  background-color: antiquewhite;
+}
+th,
+td {
+  padding: 5px 10px;
+  border: 1px solid black;
+}
+/*# sourceMappingURL=data-tables.css.map */

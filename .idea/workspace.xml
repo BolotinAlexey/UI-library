@@ -4,13 +4,9 @@
     <list default="true" id="263710ae-5f3b-4d85-83a1-846c3df26c47" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/burger.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/burger.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/burger.js" beforeDir="false" afterPath="$PROJECT_DIR$/styles/burger.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/burger.less" beforeDir="false" afterPath="$PROJECT_DIR$/styles/burger.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/carousel.js" beforeDir="false" afterPath="$PROJECT_DIR$/styles/carousel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/styles/modal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/modal.less" beforeDir="false" afterPath="$PROJECT_DIR$/styles/modal.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/burger.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/burger.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/carousel.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/carousel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/modal.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +39,11 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="project.propDebugger" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GITHUB\UI-library\js" />
+    </key>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -59,6 +60,7 @@
       <workItem from="1587055309769" duration="7091000" />
       <workItem from="1587134322656" duration="6675000" />
       <workItem from="1587231504194" duration="75000" />
+      <workItem from="1587331139865" duration="572000" />
     </task>
     <servers />
   </component>
