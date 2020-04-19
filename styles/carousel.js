@@ -43,13 +43,12 @@ function Carousel(idParent, arrImages) {
     if (currentImage > 0) {
       left.style.display = "block";
     }
-
   }
 
   function shift(k) {
     currentImage -= k;
     for (let i = 0; i < length; i++) {
-      nameParent.childNodes[i].style.transform = 'translateX(' + currentImage * 100 * k + '%)';
+      nameParent.childNodes[i].style.transform = 'translateX(' + currentImage * (-100)  + '%)';
     }
   }
 }

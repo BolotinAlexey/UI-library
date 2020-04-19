@@ -16,6 +16,8 @@ nav {
 .burger,
 .x {
   display: none;
+  visibility: hidden;
+  visibility: hidden;
 }
 li {
   padding-right: 10px;
@@ -32,12 +34,16 @@ a {
   .burger {
     position: absolute;
     right: 10px;
-    display: block;
+    display: inline-block;
+    visibility: visible;
+
   }
   .x {
     position: absolute;
     right: 10px;
     display: none;
+    visibility: visible;
+
   }
   .x i {
     font-weight: bold;
@@ -54,9 +60,8 @@ a {
     padding: 30px 0 0 0;
     display: none;
     position: absolute;
-    z-index: 100;
     flex-direction: column;
-    width: 10rem;
+    width: 100%;
     top: 60%;
     left: 100%;
     transform: translate(-100%, 0);

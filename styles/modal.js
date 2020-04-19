@@ -1,11 +1,13 @@
 let send=document.getElementsByClassName("modal-trigger");
+let z=0;
 function openModal() {
   let currentModal = document.getElementById(this.dataset.target);
+
   currentModal.style.display = "block";
-  document.body.style. backgroundColor= "rgba(0,0,0,.5)";
+  currentModal.style.zIndex=''+ ++z;
   let cross=document.createElement("button");
   cross.innerHTML=("X");
-  cross.className="x";
+  cross.className="xModal";
   currentModal.appendChild(cross);
   cross.addEventListener('click', closeModal);
   for (let j=0;j<send.length;j++) {

@@ -15,6 +15,7 @@ nav {
 
 .burger, .x {
   display: none;
+  visibility: hidden;
 }
 
 li {
@@ -36,11 +37,13 @@ a {
   .burger {
     .pos;
     display: block;
+    visibility: visible;
   }
 
   .x {
     .pos;
     display: none;
+    visibility: visible;
   }
 
   .x i {
@@ -58,9 +61,8 @@ a {
     padding: 30px 0 0 0;
     display: none;
     position: absolute;
-    z-index: 100;
     flex-direction: column;
-    width: 10rem;
+    width: 100%;
     top: 60%;
     left: 100%;
     transform: translate(-100%, 0);

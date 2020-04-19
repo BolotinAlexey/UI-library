@@ -9,7 +9,6 @@
   left: 50%;
   top: 50%;
   background: wheat;
-  z-index: 100;
   display: none;
   border: 3px double cornflowerblue;
   padding: 5%;
@@ -25,10 +24,11 @@
   left: 50%;
   bottom: 5%;
 }
-.x {
+.xModal {
   position: absolute;
   font-weight: bold;
   color: red;
   right: 1%;
   top: 1%;
 }
+/*# sourceMappingURL=modal.css.map */
