@@ -22,4 +22,13 @@ td {
   padding: 5px 10px;
   border: 1px solid black;
 }
+th button {
+  margin-left: 5px;
+  right: 3px;
+  height: 80%;
+}
+th button i {
+  display: flex;
+  flex-direction: column;
+}
 /*# sourceMappingURL=data-tables.css.map */
