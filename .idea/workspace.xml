@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="263710ae-5f3b-4d85-83a1-846c3df26c47" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/data-tables.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/data-tables.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/data-tables.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/data-tables.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/data-tables.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/styles/data-tables.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/data-tables.less" beforeDir="false" afterPath="$PROJECT_DIR$/styles/data-tables.less" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
