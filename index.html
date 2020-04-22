@@ -1,5 +1,4 @@
 <!doctype html>
-<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
@@ -18,8 +17,8 @@
   <link rel="stylesheet" href="styles/burger.css">
   <link rel="stylesheet" href="styles/carousel.less">
   <link rel="stylesheet" href="styles/carousel.css">
-
-
+  <link rel="stylesheet" href="styles/data-tables.less">
+  <link rel="stylesheet" href="styles/data-tables.css">
 
 
 </head>
@@ -39,9 +38,9 @@
   </ul>
 </nav>
 <div class="buttons">
-  <button class="modal-trigger" data-target="send1">Отправить1</button>
-  <button class="modal-trigger" data-target="send2">Отправить2</button>
-  <button class="modal-trigger" data-target="send3">Отправить3</button>
+  <button class="modal-trigger" data-target="send1">Колонки</button>
+  <button class="modal-trigger" data-target="send2">Кнопки</button>
+  <button class="modal-trigger" data-target="send3">Таблица</button>
 </div>
 
   <div class="modal" id="send1">
@@ -159,9 +158,13 @@
 
 
   <div class="modal" id="send3">
-    3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
-    3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
-    3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
+
+      <link rel="stylesheet" href="styles/data-tables.less">
+    </head>
+    <body>
+    <div id="usersTable"></div>
+    </body>
+    <script src="js/data-tables.js"></script>
     <button class="modal-close">Понятно</button>
     <button class="modal-close">Ok</button>
   </div>
