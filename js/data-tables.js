@@ -1,11 +1,15 @@
 "use strict";
 
-function DataTable(config, data) {
-  let searchData;
-  let countSortable = 0;
-  let sortData = searchData = data;
 
-  /*начальная инициализация состояния кнопок сортировки*/
+function DataTable(config, data) {
+  /** array of user records, after processing by the search engine*/
+  let searchData;
+  /** array of user records, after processing by the search engine and then sorting*/
+  let sortData = searchData = data;
+  /** amount of sorting columns*/
+  let countSortable = 0;
+
+  /** initialize the state of the sort buttons*/
   let sortState = new Map();
   config.columns.forEach(thElement => {
     if (thElement.sortable) {
@@ -14,28 +18,6 @@ function DataTable(config, data) {
     }
   });
   renderTable();
-
-  function buildSearchData(word) {
-    if (!config.search || !word) return data;
-    let arraySearchFields = (config.search.fields != null || config.search.fields.length !== 0) ? config.search.fields : config.columns.map(item => item.value);
-    let arr = [];
-    if (!config.search.filters) {
-      arraySearchFields.forEach(nameAtrData => {
-        let a = (data.filter(user => (user[nameAtrData] === word)));
-        arr = (a.length !== 0 && !(arr.find(el => {
-          return el === a
-        })) && !arr.includes(a)) ? arr.concat(a) : arr;
-      });
-    } else {
-      arraySearchFields.forEach(nameAtrData => {
-        config.search.filters.forEach(nameFilter => {
-          let a = (data.filter(user => (nameFilter(user[nameAtrData]) === nameFilter(word))));
-          arr = (a.length !== 0) ? arr.concat(a) : arr;
-        })
-      })
-    }
-    return arr;
-  }
 
   function renderTable() {
     let root = document.getElementById(config.parent);
@@ -56,7 +38,7 @@ function DataTable(config, data) {
     let thead = createAndInnerElement("thead", table, "");
     let trHead = createAndInnerElement("tr", thead, "");
 
-    /*прорисовка шапки*/
+    /** drawing of the head*/
     config.columns.forEach(thElement => {
       let th = createAndInnerElement("th", trHead, thElement.title);
       if (thElement.sortable) insertButtons(th, thElement, sortState);
@@ -65,7 +47,7 @@ function DataTable(config, data) {
       }
     });
 
-    /*прорисовка тела таблицы*/
+    /** table body drawing*/
     let tbody = createAndInnerElement("tbody", table, "");
     let index = 0;
     sortData.forEach(trElement => {
@@ -80,6 +62,7 @@ function DataTable(config, data) {
       });
     });
 
+    /** callback function that executes when a search word is entered*/
     function buildData(word) {
       sortData = searchData = buildSearchData(word);
       table.remove();
@@ -87,21 +70,50 @@ function DataTable(config, data) {
       renderTable();
     }
 
+    /** returns an array of user records that match by keyword*/
+    function buildSearchData(keyword) {
+      if (!config.search || !keyword) return data;
+      let arraySearchFields = (config.search.fields != null)
+        ? config.search.fields : config.columns.map(item => item.value);
+      let arrOfAllAtr = [];
+      if (!config.search.filters) {
+        arraySearchFields.forEach(nameAtrData => {
+          let arrOneAtr = (data.filter(user => (user[nameAtrData] === keyword)));
+          arrOfAllAtr = (arrOneAtr.length !== 0) ? arrOfAllAtr.concat(arrOneAtr) : arrOfAllAtr;
+        });
+      } else {
+        arraySearchFields.forEach(nameAtrData => {
+          config.search.filters.forEach(nameFilter => {
+            let arrOneAtr = (data.filter(user => (nameFilter(user[nameAtrData]) === nameFilter(keyword))));
+            arrOfAllAtr = (arrOneAtr.length !== 0) ? arrOfAllAtr.concat(arrOneAtr) : arrOfAllAtr;
+          })
+        })
+      }
+      /** resulting array that duplicates are deleted*/
+      let resultArr = [];
+      arrOfAllAtr.forEach((user) => {
+        if (!resultArr.includes(user))
+          resultArr.push(user)
+      });
+      return resultArr;
+    }
+
+    /** @return  a new sorted array based on the state of the button trigger*/
     function chooseSort(element, newState) {
       if (newState === 1) return searchData;
-      let newUsers = searchData.slice();
-      newUsers.sort((a, b) => {
+      let sortUsers = searchData.slice();
+      sortUsers.sort((a, b) => {
         if (typeof (a[element.value]) === "number") {
           return (1 - newState) * (a[element.value] - b[element.value]);
         } else return (1 - newState) *
           ((a[element.value].toLowerCase() < b[element.value].toLowerCase()) ? 1 : -1);
       });
-      return newUsers;
+      return sortUsers;
     }
 
     function resort(element, sortState) {
-      /*инкреминируем циклически состояние сортировки колонки нажатой кнопки
-      * остальные кнопки сбрасываются в начальное состояние*/
+      /** increment the sorting state of the column of the pressed button cyclically;
+       *  the remaining buttons are reset to the initial state*/
       let newState = (sortState.get(element) + 1) % (countSortable + 1);
       config.columns.forEach(thElement => {
         if (thElement.sortable) {
@@ -146,7 +158,7 @@ const config1 = {
   search: {
     fields: ['name', 'surname'],
     filters: [
-      v => v.toLowerCase()
+      v => v.toLowerCase(),
       // v => toKeyboardLayout(v, 'ru'),
       // v => toKeyboardLayout(v, 'en')
     ]
