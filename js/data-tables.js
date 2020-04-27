@@ -91,7 +91,7 @@ function DataTable(config, data) {
       }
       /** resulting array that duplicates are deleted*/
       let resultArr = [];
-      arrOfAllAtr.forEach((user) => {
+      arrOfAllAtr.forEach(user => {
         if (!resultArr.includes(user))
           resultArr.push(user)
       });
@@ -159,8 +159,8 @@ const config1 = {
     fields: ['name', 'surname'],
     filters: [
       v => v.toLowerCase(),
-      // v => toKeyboardLayout(v, 'ru'),
-      // v => toKeyboardLayout(v, 'en')
+      v => toKeyboardLayout(v, 'ru'),
+      v => toKeyboardLayout(v, 'en')
     ]
   }
 };
@@ -173,6 +173,28 @@ const users = [
   {id: 30054, name: 'Маша', surname: 'Петрова', age: 13},
   {id: 30055, name: 'Федя', surname: 'Федоров', age: 14},
   {id: 30056, name: 'Фамильноеимя', surname: 'Фамильноеимя', age: 14},
+  {id: 30057, name: 'Adam', surname: 'Eva', age: 19},
+  {id: 30058, name: 'Eva', surname: 'Adam', age: 18},
 ];
+
+function toKeyboardLayout(v, lang) {
+  let en = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 'a', 's', 'd',
+    'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.'];
+  let ru = ['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в',
+    'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю'];
+  let newV = [];
+  let arrV = v.toLowerCase().split("");
+  arrV.forEach(char => {
+    if (langFun(lang, false).includes(char)) {
+      let index = langFun(lang, false).indexOf(char);
+      newV.push(langFun(lang, true)[index]);
+    }
+  });
+  return (arrV.length !== newV.length) ? v.toLowerCase() : newV.join("");
+
+  function langFun(lang, bool) {
+    return ((lang === 'ru') && bool) ? ru : en;
+  }
+}
 
 DataTable(config1, users);
