@@ -20,15 +20,15 @@ function DataTable(config, data) {
   renderTable();
 
   function renderTable() {
-    let root = document.getElementById(config.parent);
-    let search = null;
+    let root = document.querySelector(config.parent);
+    let search;
     if (config.search) {
       search = createAndInnerElement("div", root, "");
       search.className = "table-search";
       let input = createAndInnerElement("input", search, "");
       input.type = "text";
       input.focus();
-      input.addEventListener("change", (event) => {
+      input.addEventListener("change", event=> {
         buildData(event.target.value)
       });
       let clear = createAndInnerElement("button", search, "clear");
@@ -53,9 +53,8 @@ function DataTable(config, data) {
     sortData.forEach(trElement => {
       let trBody = createAndInnerElement("tr", tbody, "");
       config.columns.forEach(thElement => {
-        let stringValue = thElement.value;
-        let td = (stringValue === '_index') ? createAndInnerElement("td", trBody, ++index)
-          : createAndInnerElement("td", trBody, trElement[stringValue]);
+        let td = (thElement.value === '_index') ? createAndInnerElement("td", trBody, ++index)
+          : createAndInnerElement("td", trBody, trElement[thElement.value]);
         if (thElement.type === 'number') {
           td.className = "align-right";
         }
@@ -111,26 +110,34 @@ function DataTable(config, data) {
       return sortUsers;
     }
 
+
     function resort(element, sortState) {
       /** increment the sorting state of the column of the pressed button cyclically;
        *  the remaining buttons are reset to the initial state*/
       let newState = (sortState.get(element) + 1) % (countSortable + 1);
+ initDefaultStateOfButtons();
+      sortState.set(element, newState);
+      sortData = chooseSort(element, newState);
+      table.remove();
+      if (search) search.remove();
+      initDefaultStateOfButtons();
+      renderTable();
+    }
+
+
+    function initDefaultStateOfButtons() {
       config.columns.forEach(thElement => {
         if (thElement.sortable) {
           sortState.set(thElement, 1);
         }
       });
-      sortState.set(element, newState);
-      sortData = chooseSort(element, newState);
-      table.remove();
-      if (search) search.remove();
-      renderTable();
     }
+
 
     function insertButtons(th, element, sortState) {
       let button = createAndInnerElement("button", th, "");
-      let classNameI = "fas " + ((sortState.get(element) === 0) ? "fa-sort-down" :
-        (sortState.get(element) === 1) ? "fa-sort" : "fa-sort-up");
+      let classNameI = "fas fa-sort" + ((sortState.get(element) === 0) ? "-down" :
+        (sortState.get(element) === 1) ? "" : "-up");
       let i = createAndInnerElement("i", button, "");
       i.className = classNameI;
       i.addEventListener("click", function () {
@@ -148,7 +155,7 @@ function createAndInnerElement(tagString, parentTag, inner) {
 }
 
 const config1 = {
-  parent: 'usersTable',
+  parent: '#usersTable',
   columns: [
     {title: '№', value: '_index'},
     {title: 'Имя', value: 'name'},
