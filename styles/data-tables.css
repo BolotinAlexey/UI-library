@@ -1,5 +1,7 @@
 #usersTable {
   margin: 10px;
+  max-height: 500px;
+  overflow-y: scroll;
 }
 table {
   display: table;
@@ -21,11 +23,11 @@ th,
 td {
   padding: 5px 10px;
   border: 1px solid black;
+  height: 20px;
 }
 th button {
   margin-left: 5px;
   right: 3px;
-  height: 80%;
 }
 th button i {
   display: flex;

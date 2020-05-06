@@ -4,20 +4,42 @@
 function DataTable(config, data) {
   /** array of user records, after processing by the search engine*/
   let searchData;
-  /** array of user records, after processing by the search engine and then sorting*/
-  let sortData = searchData = data;
+  /** array of user records*/
+  let sortData;
   /** amount of sorting columns*/
   let countSortable = 0;
-
   /** initialize the state of the sort buttons*/
   let sortState = new Map();
+  let isApi = !!config.apiUrl;
+  let usersData = [];
+
   config.columns.forEach(thElement => {
     if (thElement.sortable) {
       sortState.set(thElement, 1);
       countSortable++;
     }
   });
-  renderTable();
+
+  if (isApi) {
+    fetch(config.apiUrl).then(res => res.json()).then(data => {
+      usersData = sortData = searchData = data.slice();
+      // columnsAtr=determAtrColumns(usersData);
+      console.log(usersData)
+      renderTable();
+    })
+  } else {
+    // columnsAtr=config.columns;
+    usersData = sortData = searchData = data;
+    renderTable();
+  }
+
+  // function readDataURL() {
+  //   fetch(config.apiUrl).then(res => res.json()).then(data => {
+  //     usersData=data.slice();
+  //     columnsAtr=determAtrColumns(usersData);
+  //     renderTable();
+  //   })
+  // }
 
   function renderTable() {
     let root = document.querySelector(config.parent);
@@ -28,7 +50,7 @@ function DataTable(config, data) {
       let input = createAndInnerElement("input", search, "");
       input.type = "text";
       input.focus();
-      input.addEventListener("change", event=> {
+      input.addEventListener("change", event => {
         buildData(event.target.value)
       });
       let clear = createAndInnerElement("button", search, "clear");
@@ -54,7 +76,8 @@ function DataTable(config, data) {
       let trBody = createAndInnerElement("tr", tbody, "");
       config.columns.forEach(thElement => {
         let td = (thElement.value === '_index') ? createAndInnerElement("td", trBody, ++index)
-          : createAndInnerElement("td", trBody, trElement[thElement.value]);
+          : (typeof (thElement.value) === 'function') ? createAndInnerElement("td", trBody, calculateAge(trElement['createdAt']))
+            : createAndInnerElement("td", trBody, trElement[thElement.value]);
         if (thElement.type === 'number') {
           td.className = "align-right";
         }
@@ -71,19 +94,19 @@ function DataTable(config, data) {
 
     /** returns an array of user records that match by keyword*/
     function buildSearchData(keyword) {
-      if (!config.search || !keyword) return data;
+      if (!config.search || !keyword) return usersData;
       let arraySearchFields = (config.search.fields != null)
         ? config.search.fields : config.columns.map(item => item.value);
       let arrOfAllAtr = [];
       if (!config.search.filters) {
         arraySearchFields.forEach(nameAtrData => {
-          let arrOneAtr = (data.filter(user => (user[nameAtrData] === keyword)));
+          let arrOneAtr = (usersData.filter(user => (user[nameAtrData] === keyword)));
           arrOfAllAtr = (arrOneAtr.length !== 0) ? arrOfAllAtr.concat(arrOneAtr) : arrOfAllAtr;
         });
       } else {
         arraySearchFields.forEach(nameAtrData => {
           config.search.filters.forEach(nameFilter => {
-            let arrOneAtr = (data.filter(user => (nameFilter(user[nameAtrData]) === nameFilter(keyword))));
+            let arrOneAtr = (usersData.filter(user => (nameFilter(user[nameAtrData]) === nameFilter(keyword))));
             arrOfAllAtr = (arrOneAtr.length !== 0) ? arrOfAllAtr.concat(arrOneAtr) : arrOfAllAtr;
           })
         })
@@ -115,12 +138,11 @@ function DataTable(config, data) {
       /** increment the sorting state of the column of the pressed button cyclically;
        *  the remaining buttons are reset to the initial state*/
       let newState = (sortState.get(element) + 1) % (countSortable + 1);
- initDefaultStateOfButtons();
+      initDefaultStateOfButtons();
       sortState.set(element, newState);
       sortData = chooseSort(element, newState);
       table.remove();
       if (search) search.remove();
-      initDefaultStateOfButtons();
       renderTable();
     }
 
@@ -140,12 +162,26 @@ function DataTable(config, data) {
         (sortState.get(element) === 1) ? "" : "-up");
       let i = createAndInnerElement("i", button, "");
       i.className = classNameI;
-      i.addEventListener("click", function () {
+      button.addEventListener("click", function () {
         resort(element, sortState)
       });
     }
   }
+
+
 }
+
+// function determAtrColumns(users) {
+//   let atrColumns = [];
+//   users.forEach(user => {
+//     for (let atr in user) {
+//       if (!atrColumns.includes(atr)) {
+//         atrColumns.push(atr);
+//       }
+//     }
+//   });
+//   return atrColumns;
+// }
 
 function createAndInnerElement(tagString, parentTag, inner) {
   let tag = document.createElement(tagString);
@@ -154,16 +190,27 @@ function createAndInnerElement(tagString, parentTag, inner) {
   return tag;
 }
 
+function calculateAge(date) {
+  let curDate = new Date();
+  const temp = date.substr(0, 10).split('-');
+  const age = curDate.getFullYear() - temp[0] + (curDate.getMonth() - temp[1] + 1) / 12 + (curDate.getDay() - temp[2]) / 365;
+  return Math.round(age * 1000) / 1000;
+}
+
+// let obj={createdAt:'createdAt'}
+// this.createdAt = this.value=='createdAt';
 const config1 = {
   parent: '#usersTable',
   columns: [
     {title: '№', value: '_index'},
-    {title: 'Имя', value: 'name'},
-    {title: 'Фамилия', value: 'surname', sortable: true},
-    {title: 'Возраст', value: 'age', type: 'number', sortable: true}
+    {title: 'Имя', value: 'author', sortable: true},
+    {title: 'Текст', value: 'text', sortable: true},
+    {title: 'Возраст,лет', value: user => calculateAge(user.createdAt), type: 'number'},
+    {title: 'Класс', value: 'likes', type: 'number', sortable: true},
   ],
+  apiUrl: "https://5e938231c7393c0016de48e6.mockapi.io/api/ps5/posts",
   search: {
-    fields: ['name', 'surname'],
+    fields: ['author', 'text'],
     filters: [
       v => v.toLowerCase(),
       v => toKeyboardLayout(v, 'ru'),
@@ -171,6 +218,19 @@ const config1 = {
     ]
   }
 };
+
+
+// let fun = () => {
+//   users.forEach(user => {
+//     for (let atr in user) {
+//       if (!columns.includes(atr)) {
+//         columns.push(atr);
+//       }
+//     }
+//   });
+//   console.log(users);
+//   console.log(columns);
+// };
 
 const users = [
   {id: 30050, name: 'Вася', surname: 'Петров', age: 12},
@@ -184,6 +244,7 @@ const users = [
   {id: 30058, name: 'Eva', surname: 'Adam', age: 18},
 ];
 
+/** -------------*/
 function toKeyboardLayout(v, lang) {
   let en = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 'a', 's', 'd',
     'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.'];
@@ -203,5 +264,7 @@ function toKeyboardLayout(v, lang) {
     return ((lang === 'ru') && bool) ? ru : en;
   }
 }
+
+/**----------------*/
 
 DataTable(config1, users);
