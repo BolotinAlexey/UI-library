@@ -1,6 +1,5 @@
 "use strict";
 
-
 function DataTable(config, data) {
   /** array of user records, after processing by the search engine*/
   let searchData;
@@ -12,6 +11,9 @@ function DataTable(config, data) {
   let sortState = new Map();
   let isApi = !!config.apiUrl;
   let usersData = [];
+  let table;
+  let search;
+  let currentWord;
 
   config.columns.forEach(thElement => {
     if (thElement.sortable) {
@@ -24,7 +26,7 @@ function DataTable(config, data) {
     fetch(config.apiUrl).then(res => res.json()).then(data => {
       usersData = sortData = searchData = data.slice();
       // columnsAtr=determAtrColumns(usersData);
-      console.log(usersData)
+      console.log(usersData);
       renderTable();
     })
   } else {
@@ -41,9 +43,78 @@ function DataTable(config, data) {
   //   })
   // }
 
+  function delUser(id) {
+    let user = usersData.find((us) => us.id === id);
+    fetch(config.apiUrl + '/' + user.id, {method: 'DELETE'})
+      .then(() => fetch(config.apiUrl))
+      .then(res => res.json())
+      .then(data => {
+        usersData =  data.slice();
+        searchData = buildData(currentWord);
+        // sortData = chooseSort();
+        // console.log(usersData);
+        // if (search) search.remove();
+        // table.remove();
+        // renderTable();
+      })
+  }
+
+  function chooseSort() {
+    let element = config.columns.find((elem => elem.sortable && sortState.get(elem) !== 1));
+    let newState = sortState.get(element);
+    let sortUsers = searchData.slice();
+    if (element) {
+      sortUsers.sort((a, b) => {
+        if (typeof (a[element.value]) === "number") {
+          return (1 - newState) * (a[element.value] - b[element.value]);
+        } else return (1 - newState) *
+          ((a[element.value].toLowerCase() < b[element.value].toLowerCase()) ? 1 : -1);
+      });
+    }
+    return sortUsers;
+  }
+
+  /** callback function that executes when a search word is entered*/
+  function buildData(word) {
+    currentWord=word;
+    searchData = buildSearchData(word);
+    sortData = chooseSort();
+    table.remove();
+    if (search) search.remove();
+    renderTable();
+  }
+
+
+  /** returns an array of user records that match by keyword*/
+  function buildSearchData(keyword) {
+    if (!config.search || !keyword) return usersData;
+    let arraySearchFields = (config.search.fields != null)
+      ? config.search.fields : config.columns.map(item => item.value);
+    let arrOfAllAtr = [];
+    if (!config.search.filters) {
+      arraySearchFields.forEach(nameAtrData => {
+        let arrOneAtr = (usersData.filter(user => (user[nameAtrData] === keyword)));
+        arrOfAllAtr = (arrOneAtr.length !== 0) ? arrOfAllAtr.concat(arrOneAtr) : arrOfAllAtr;
+      });
+    } else {
+      arraySearchFields.forEach(nameAtrData => {
+        config.search.filters.forEach(nameFilter => {
+          let arrOneAtr = (usersData.filter(user => (nameFilter(user[nameAtrData]) === nameFilter(keyword))));
+          arrOfAllAtr = (arrOneAtr.length !== 0) ? arrOfAllAtr.concat(arrOneAtr) : arrOfAllAtr;
+        })
+      })
+    }
+    /** resulting array that duplicates are deleted*/
+    let resultArr = [];
+    arrOfAllAtr.forEach(user => {
+      if (!resultArr.includes(user))
+        resultArr.push(user)
+    });
+    return resultArr;
+  }
+
   function renderTable() {
     let root = document.querySelector(config.parent);
-    let search;
     if (config.search) {
       search = createAndInnerElement("div", root, "");
       search.className = "table-search";
@@ -56,7 +127,7 @@ function DataTable(config, data) {
       let clear = createAndInnerElement("button", search, "clear");
       clear.addEventListener("click", () => buildData(""));
     }
-    let table = createAndInnerElement("table", root, "");
+    table = createAndInnerElement("table", root, "");
     let thead = createAndInnerElement("thead", table, "");
     let trHead = createAndInnerElement("tr", thead, "");
 
@@ -68,6 +139,7 @@ function DataTable(config, data) {
         th.className = "align-right";
       }
     });
+    createAndInnerElement("th", trHead, "Действия");
 
     /** table body drawing*/
     let tbody = createAndInnerElement("tbody", table, "");
@@ -82,56 +154,27 @@ function DataTable(config, data) {
           td.className = "align-right";
         }
       });
+      let act = createAndInnerElement('td', trBody, '');
+      let buttonDel = createAndInnerElement('button', act, 'DELETE');
+      buttonDel.className = 'del';
+      buttonDel.addEventListener('click', function () {
+        delUser(trElement.id);
+      })
     });
 
-    /** callback function that executes when a search word is entered*/
-    function buildData(word) {
-      sortData = searchData = buildSearchData(word);
-      table.remove();
-      if (search) search.remove();
-      renderTable();
-    }
-
-    /** returns an array of user records that match by keyword*/
-    function buildSearchData(keyword) {
-      if (!config.search || !keyword) return usersData;
-      let arraySearchFields = (config.search.fields != null)
-        ? config.search.fields : config.columns.map(item => item.value);
-      let arrOfAllAtr = [];
-      if (!config.search.filters) {
-        arraySearchFields.forEach(nameAtrData => {
-          let arrOneAtr = (usersData.filter(user => (user[nameAtrData] === keyword)));
-          arrOfAllAtr = (arrOneAtr.length !== 0) ? arrOfAllAtr.concat(arrOneAtr) : arrOfAllAtr;
-        });
-      } else {
-        arraySearchFields.forEach(nameAtrData => {
-          config.search.filters.forEach(nameFilter => {
-            let arrOneAtr = (usersData.filter(user => (nameFilter(user[nameAtrData]) === nameFilter(keyword))));
-            arrOfAllAtr = (arrOneAtr.length !== 0) ? arrOfAllAtr.concat(arrOneAtr) : arrOfAllAtr;
-          })
-        })
-      }
-      /** resulting array that duplicates are deleted*/
-      let resultArr = [];
-      arrOfAllAtr.forEach(user => {
-        if (!resultArr.includes(user))
-          resultArr.push(user)
-      });
-      return resultArr;
-    }
 
     /** @return  a new sorted array based on the state of the button trigger*/
-    function chooseSort(element, newState) {
-      if (newState === 1) return searchData;
-      let sortUsers = searchData.slice();
-      sortUsers.sort((a, b) => {
-        if (typeof (a[element.value]) === "number") {
-          return (1 - newState) * (a[element.value] - b[element.value]);
-        } else return (1 - newState) *
-          ((a[element.value].toLowerCase() < b[element.value].toLowerCase()) ? 1 : -1);
-      });
-      return sortUsers;
-    }
+    // function chooseSort(element, newState) {
+    //   if (newState === 1) return searchData;
+    //   let sortUsers = searchData.slice();
+    //   sortUsers.sort((a, b) => {
+    //     if (typeof (a[element.value]) === "number") {
+    //       return (1 - newState) * (a[element.value] - b[element.value]);
+    //     } else return (1 - newState) *
+    //       ((a[element.value].toLowerCase() < b[element.value].toLowerCase()) ? 1 : -1);
+    //   });
+    //   return sortUsers;
+    // }
 
 
     function resort(element, sortState) {
@@ -140,7 +183,7 @@ function DataTable(config, data) {
       let newState = (sortState.get(element) + 1) % (countSortable + 1);
       initDefaultStateOfButtons();
       sortState.set(element, newState);
-      sortData = chooseSort(element, newState);
+      sortData = chooseSort();
       table.remove();
       if (search) search.remove();
       renderTable();
