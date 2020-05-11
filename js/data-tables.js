@@ -298,7 +298,7 @@ const config1 = {
     {title: 'Возраст,лет', value: 'createdAt', type: 'date'},
     {title: 'Класс', value: 'likes', type: 'number', sortable: true},
   ],
-  // apiUrl: "https://5e938231c7393c0016de48e6.mockapi.io/api/ps5/posts",
+   apiUrl: "https://5e938231c7393c0016de48e6.mockapi.io/api/ps5/posts",
   search: {
     fields: ['author', 'text'],
     filters: [
