@@ -19,7 +19,6 @@ function openModal() {
 function closeModal() {
   this.parentNode.style.display = "none";
   document.body.style.backgroundColor = "white";
-  //if (this.className === "xModal") this.remove();
 }
 
 for (let i = 0; i < send.length; i++) {

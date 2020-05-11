@@ -127,76 +127,18 @@ function DataTable(config, data) {
       if (isApi) {
         request(id, user)
       } else {
-        user.id = !id ? +usersData.reduce(function (max, us) {
-          return max.id > us.id ? max.id : us.id
-        }) + 1 : id;
-        usersData.push(user);
+        if (!id) {
+          user.id = 1 + usersData.reduce(function (max, us) {
+            return max.id > us.id ? max.id : us.id
+          });
+          usersData.push(user);
+        }
         editWindow.style.display = "none";
         buildData(currentWord);
       }
     })
 
   }
-
-  function addUser() {
-    let newUser = {};
-    const addWindow = document.getElementById("addUser");
-    let prevForm = document.getElementById("form");
-    if (prevForm !== null) {
-      prevForm.parentElement.display = "none";
-      prevForm.remove();
-    }
-    const form = createAndInnerElement("div", addWindow, "");
-    form.id = "form";
-    config.columns.forEach(atr => {
-      if (atr.editable !== false) {
-        let div = createAndInnerElement("div", form, "");
-        let label = createAndInnerElement("label", div, atr.title);
-        label.id = atr.value;
-        let input = createAndInnerElement("input", div, "");
-        switch (atr.type) {
-          case "number":
-            input.type = "number";
-            break;
-          case "date":
-            input.type = "date";
-            break;
-          case "text":
-            input.type = "text";
-        }
-        input.addEventListener("change", event => {
-          newUser[atr.value] = (atr.type === "date") ? (new Date(event.target.value)).toISOString() :
-            event.target.value;
-        });
-      }
-    });
-    const btnSave = createAndInnerElement("button", form, "Save");
-    btnSave.addEventListener("click", () => {
-      if (isApi) {
-        fetch(config.apiUrl, {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-          },
-          body: JSON.stringify(newUser),
-        }).then(() => fetch(config.apiUrl))
-          .then(res => res.json())
-          .then(data => {
-            usersData = data.slice();
-            addWindow.style.display = "none";
-            buildData(currentWord);
-          })
-      } else {
-        newUser.id = +usersData.reduce(function (max, us) {
-          return max.id > us.id ? max.id : us.id
-        }) + 1;
-        usersData.push(newUser);
-        addWindow.style.display = "none";
-        buildData(currentWord);
-      }
-    })
-  }
-
 
   /** @return  a new sorted array based on the state of the button trigger*/
   function chooseSort() {
@@ -220,7 +162,6 @@ function DataTable(config, data) {
     searchData = buildSearchData(word);
     sortData = chooseSort();
     table.remove();
-    // nav.remove();
     renderTable();
   }
 
@@ -357,7 +298,7 @@ const config1 = {
     {title: 'Возраст,лет', value: 'createdAt', type: 'date'},
     {title: 'Класс', value: 'likes', type: 'number', sortable: true},
   ],
-  apiUrl: "https://5e938231c7393c0016de48e6.mockapi.io/api/ps5/posts",
+  // apiUrl: "https://5e938231c7393c0016de48e6.mockapi.io/api/ps5/posts",
   search: {
     fields: ['author', 'text'],
     filters: [

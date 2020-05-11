@@ -3,6 +3,18 @@
   max-height: 500px;
   overflow-y: scroll;
 }
+#usersTable .modal-trigger {
+  margin: 0 20px;
+}
+#usersTable .modal {
+  background-color: palegreen;
+}
+#usersTable .modal div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10px 0;
+}
 table {
   display: table;
   border-collapse: collapse;
@@ -58,17 +70,5 @@ th button i {
   top: 5%;
   width: 80%;
   height: 10%;
-}
-#editUser {
-  background-color: palegreen;
-}
-#addUser div {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin: 10px 0;
-}
-#usersTable .modal-trigger {
-  margin: 0 20px;
 }
 /*# sourceMappingURL=data-tables.css.map */
