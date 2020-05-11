@@ -27,15 +27,15 @@ function DataTable(config, data) {
     input.addEventListener("input", event => {
       buildData(event.target.value)
     });
-  //   let clear = createAndInnerElement("button", search, "clear");
-  //   clear.addEventListener("click", () => buildData(""));
-   }
-  createModal("addUser", root);  //create window of modal into HTML
+  }
+  createModal("editUser", root);  //create window of modal into HTML
   let buttonAdd = createAndInnerElement("button", nav, "Добавить нового пользователя");
-  buttonAdd.dataset.target = "addUser";
+  buttonAdd.dataset.target = "editUser";
   buttonAdd.className = "modal-trigger";
   buttonAdd.addEventListener("click", openModal);
-  buttonAdd.addEventListener("click", addUser);
+  buttonAdd.addEventListener("click", function () {
+    editUser("");
+  });
 
   config.columns.forEach(thElement => {
     if (thElement.sortable) {
@@ -55,28 +55,97 @@ function DataTable(config, data) {
     renderTable();
   }
 
-
-  function delUser(id) {
-    if (isApi){
-    let user = usersData.find(us=> us.id === id);
-    fetch(config.apiUrl + '/' + user.id, {method: 'DELETE'})
-      .then(() => fetch(config.apiUrl))
+  function request(id, user) {
+    fetch(config.apiUrl + "/" + id, {
+      method: !id ? "POST" : "PUT",
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(user),
+    }).then(() => fetch(config.apiUrl))
       .then(res => res.json())
       .then(data => {
         usersData = data.slice();
         buildData(currentWord);
-      })}
-    else {
-      usersData=usersData.filter(us=>us.id !== id);
-        buildData(currentWord);
+      })
+  }
+
+  function delUser(id) {
+    if (isApi) {
+      let user = usersData.find(us => us.id === id);
+      fetch(config.apiUrl + '/' + user.id, {method: 'DELETE'})
+        .then(() => fetch(config.apiUrl))
+        .then(res => res.json())
+        .then(data => {
+          usersData = data.slice();
+          buildData(currentWord);
+        })
+    } else {
+      usersData = usersData.filter(us => us.id !== id);
+      buildData(currentWord);
     }
+  }
+
+  function editUser(id) {
+    let user = id === "" ? {} : usersData.find(us => us.id === id);
+    let editWindow = document.getElementById("editUser" + id);
+    let prevForm = document.getElementsByClassName("form");
+    if (prevForm !== null) {
+      for (let el of prevForm) {
+        el.parentElement.display = "none";
+        el.remove();
+      }
+    }
+    const form = createAndInnerElement("div", editWindow, "");
+    form.className = "form";
+    config.columns.forEach(atr => {
+      if (atr.editable !== false) {
+        let div = createAndInnerElement("div", form, "");
+        let label = createAndInnerElement("label", div, atr.title);
+        label.id = atr.value;
+        let input = createAndInnerElement("input", div, "");
+        input.value = id && user[atr.value];
+        switch (atr.type) {
+          case "number":
+            input.type = "number";
+            break;
+          case "date":
+            input.type = "date";
+            break;
+          case "text":
+            input.type = "text";
+        }
+        input.addEventListener("change", event => {
+          user[atr.value] = (atr.type === "date") ? (new Date(event.target.value)).toISOString() :
+            event.target.value;
+        });
+      }
+    });
+    const btnSave = createAndInnerElement("button", form, "Save");
+    btnSave.addEventListener("click", () => {
+      editWindow.style.display = "none";
+      if (isApi) {
+        request(id, user)
+      } else {
+        user.id = !id ? +usersData.reduce(function (max, us) {
+          return max.id > us.id ? max.id : us.id
+        }) + 1 : id;
+        usersData.push(user);
+        editWindow.style.display = "none";
+        buildData(currentWord);
+      }
+    })
+
   }
 
   function addUser() {
     let newUser = {};
     const addWindow = document.getElementById("addUser");
     let prevForm = document.getElementById("form");
-    if (prevForm !== null) prevForm.remove();
+    if (prevForm !== null) {
+      prevForm.parentElement.display = "none";
+      prevForm.remove();
+    }
     const form = createAndInnerElement("div", addWindow, "");
     form.id = "form";
     config.columns.forEach(atr => {
@@ -103,22 +172,24 @@ function DataTable(config, data) {
     });
     const btnSave = createAndInnerElement("button", form, "Save");
     btnSave.addEventListener("click", () => {
-      if (isApi){
-      fetch(config.apiUrl, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(newUser),
-      }).then(() => fetch(config.apiUrl))
-        .then(res => res.json())
-        .then(data => {
-          usersData = data.slice();
-          addWindow.style.display = "none";
-          buildData(currentWord);
-        })}
-      else {
-       newUser.id = +usersData.reduce(function(max,us) {return max.id>us.id?max.id:us.id})+1;
+      if (isApi) {
+        fetch(config.apiUrl, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify(newUser),
+        }).then(() => fetch(config.apiUrl))
+          .then(res => res.json())
+          .then(data => {
+            usersData = data.slice();
+            addWindow.style.display = "none";
+            buildData(currentWord);
+          })
+      } else {
+        newUser.id = +usersData.reduce(function (max, us) {
+          return max.id > us.id ? max.id : us.id
+        }) + 1;
         usersData.push(newUser);
         addWindow.style.display = "none";
         buildData(currentWord);
@@ -211,10 +282,20 @@ function DataTable(config, data) {
         }
       });
       let act = createAndInnerElement('td', trBody, '');
+      act.className = "act";
       let buttonDel = createAndInnerElement('button', act, 'DELETE');
       buttonDel.className = 'del';
       buttonDel.addEventListener('click', function () {
         delUser(trElement.id);
+      });
+      let buttonEdit = createAndInnerElement('button', act, 'EDIT');
+
+      buttonEdit.dataset.target = "editUser" + trElement.id;
+      buttonEdit.className = 'edit';
+      createModal("editUser" + trElement.id, root);
+      buttonEdit.addEventListener("click", openModal);
+      buttonEdit.addEventListener('click', function () {
+        editUser(trElement.id);
       })
     });
 
@@ -227,7 +308,6 @@ function DataTable(config, data) {
       sortState.set(element, newState);
       sortData = chooseSort();
       table.remove();
-      // nav.remove();
       renderTable();
     }
 

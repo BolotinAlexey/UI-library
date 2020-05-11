@@ -19,7 +19,7 @@ function openModal() {
 function closeModal() {
   this.parentNode.style.display = "none";
   document.body.style.backgroundColor = "white";
- // if (this.className === "xModal") this.remove();
+  //if (this.className === "xModal") this.remove();
 }
 
 for (let i = 0; i < send.length; i++) {
@@ -30,4 +30,5 @@ function createModal(modalId,parent) {
   const modalWindow = createAndInnerElement("div", parent, "");
   modalWindow.className = "modal";
   modalWindow.id = modalId;
+  return modalWindow;
 }

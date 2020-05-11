@@ -41,7 +41,11 @@ th button i {
 }
 .del {
   background-color: red;
-  color: white;
+  color: yellow;
+}
+.edit {
+  background-color: yellow;
+  color: red;
 }
 .navTable {
   margin: 10px 10px 10px 0;
@@ -55,7 +59,7 @@ th button i {
   width: 80%;
   height: 10%;
 }
-#addUser {
+#editUser {
   background-color: palegreen;
 }
 #addUser div {
