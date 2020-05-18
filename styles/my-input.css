@@ -1,0 +1,14 @@
+#send4 {
+  background-color: lightgoldenrodyellow;
+}
+#send4 #app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+#send4 #app div {
+  font-size: large;
+  color: darkslategrey;
+  margin: 10px 0;
+}
+/*# sourceMappingURL=my-input.css.map */

@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>total</title>
   <script src="https://kit.fontawesome.com/a92211bf3b.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
   <link rel="stylesheet/less" type="text/css" href="styles/grid.less"/>
   <link rel="stylesheet" type="text/css" href="styles/grid.css"/>
@@ -20,7 +21,7 @@
   <link rel="stylesheet" href="styles/carousel.css">
   <link rel="stylesheet" href="styles/data-tables.less">
   <link rel="stylesheet" href="styles/data-tables.css">
-
+  <link rel="stylesheet" href="styles/my-input.css">
 
 </head>
 <body>
@@ -42,6 +43,7 @@
   <button class="modal-trigger" data-target="send1">Колонки</button>
   <button class="modal-trigger" data-target="send2">Кнопки</button>
   <button class="modal-trigger" data-target="send3">Таблица</button>
+  <button class="modal-trigger" data-target="send4">Форма</button>
 </div>
 
   <div class="modal" id="send1">
@@ -163,6 +165,33 @@
     <button class="modal-close">Понятно</button>
     <button class="modal-close">Ok</button>
   </div>
+
+<div class="modal" id="send4">
+  <div id="app">
+    <my-input
+      v-for="q in questions"
+    :key="q.title"
+    :type="q.type"
+    :title="q.title"
+    :placeholder="q.placeholder"
+    :required="q.required"
+    />
+  </div>
+  <script src="my-input.js"></script>
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data: {
+        questions: [
+          { title: "Как тебя зовут?", placeholder: "Иван" },
+          { title: "Сколько тебе лет?", placeholder: "15", type: "number" },
+          { title: "Твой email", placeholder: "ivan@example.com", required: true }
+        ]
+      },
+    })
+  </script>
+
+</div>
 
 
 <script src="js/modal.js"></script>

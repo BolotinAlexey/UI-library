@@ -11,7 +11,7 @@ function showMenu() {
 }
 
 function openBurger() {
-  this.style.display = "none"
+  this.style.display = "none";
   burger.style.display = "block";
   menu.style.display="none";
 }
