@@ -11,4 +11,7 @@
   color: darkslategrey;
   margin: 10px 0;
 }
+.invalid {
+  background-color: lightpink;
+}
 /*# sourceMappingURL=my-input.css.map */
