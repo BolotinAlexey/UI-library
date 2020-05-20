@@ -174,12 +174,15 @@
         :key="q.title"
         :type="q.type"
         :title="q.title"
-        :placeholderr="q.placeholder"
+        :placeholder="q.placeholder"
         :required="q.required"
         v-model="inputValueParent"
+        :err="q.err"
+        :pattern="q.pattern"
       />
 
-    </div><pre>{{inputValueParent}}</pre>
+    </div>
+<!--    <pre>{{inputValueParent}}</pre>-->
   </div>
   <script src="my-input.js"></script>
   <script>
@@ -187,9 +190,12 @@
       el: '#app',
       data: {
         questions: [
-          {title: "Как тебя зовут?", placeholder: "Иван"},
-          {title: "Сколько тебе лет?", placeholder: "15", type: "number"},
-          {title: "Твой email", placeholder: "ivan@example.com", required: true}
+          {title: "Как тебя зовут?", placeholder: "Иван",
+            err: "Введите корректное имя",pattern: "^[a-zA-Zа-яёА-ЯЁ]+$"},
+          {title: "Сколько тебе лет?", placeholder: "15", type: "number",
+            err: "Введите возраст от 1 до 99 лет",pattern: "^\\d{1,2}$"},
+          {title: "Твой email", placeholder: "ivan@example.com", required: true,
+            err: "Введите правильный e-mail", pattern: "\\b[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,6}\\b"}
         ],
 inputValueParent: ''
       },

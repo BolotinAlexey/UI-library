@@ -11,7 +11,14 @@
   color: darkslategrey;
   margin: 10px 0;
 }
-.invalid {
+#send4 #app .error {
+  font-size: small;
+  color: red;
+}
+.blur {
   background-color: lightpink;
+}
+.hide {
+  display: none;
 }
 /*# sourceMappingURL=my-input.css.map */
