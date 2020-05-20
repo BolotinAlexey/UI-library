@@ -10,6 +10,7 @@ Vue.component('my-input', {
       type: String,
       default: 'text'
     },
+
   },
   template: `
 <div>
@@ -18,18 +19,23 @@ Vue.component('my-input', {
     :placeholder="placeholderr" 
     :required="required"
     :class="{invalid: isValid}"
+    v-model="inputValue"
     @blur="validate"
-    @input="validate">
+    @input="validate,$emit('input', $event.target.value)">
     </label>
 </div>
 `,
   methods: {
-    validate: function(e){
-    this.isValid=e.target.required && !e.target.value
+    validate: function (e) {
+      this.isValid = e.target.required && !e.target.value;
+      console.log(this.inputValue)
     },
   },
 
   data: function () {
-    return {isValid: false}
+    return {
+      isValid: false,
+      inputValue: ''
+    }
   }
 });
