@@ -27,8 +27,9 @@ Vue.component('my-input', {
     :placeholder="placeholder" 
     :required="required"
     :class="{blur: isBlur}"
-    @blur="checkFocus"
-    @input="checkFocus"
+    @focus="isBlur = false"
+    @blur="checkBlur"
+    @input="checkInput"
     @change="validate"
    >
     <div 
@@ -38,12 +39,14 @@ Vue.component('my-input', {
 </div>
 `,
   methods: {
-    checkFocus: function (e) {
+    checkBlur: function (e) {
       this.isBlur = (e.target.required && !e.target.value);
-      this.$emit('input', e.target.value);
     },
     validate: function (e) {
       this.isHide=(new RegExp(this.pattern)).test(String(e.target.value).toLowerCase());
+    },
+    checkInput: function (e) {
+      this.$emit('input', e.target.value);
     }
   },
 
