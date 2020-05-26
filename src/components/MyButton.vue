@@ -4,7 +4,9 @@
                 @click="onClick"
                 :class="'mybtn-'+color+'-'+size"
         >
-            <a href= "String(this.href)"></a>
+            <span v-if="href">
+                <a :href= "href"></a>
+            </span>
             <slot></slot>
         </div>
     </div>
