@@ -29,10 +29,6 @@
             }
 
         },
-        data() {
-            return {
-            }
-        },
         methods: {
             onClick: function (e) {
                 this.$emit('clickOn', e.target);

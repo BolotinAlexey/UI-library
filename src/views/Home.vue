@@ -1,28 +1,20 @@
 <template>
     <div class="home">
-        <!--        <img alt="Vue logo" src="../assets/logo.png">-->
-        <!--        <HelloWorld msg="Welcome to Your Vue.js App"/>-->
-        <div v-for="s in sizes">
-            <MyButton
-                    @clickOn='proc'
-                    v-for="c in colors" :color=c :size=s
-                    :href="'https://google.com/'+s+'/'+c"
-            >Text of Button
-            </MyButton>
-        </div>
-    </div>
-    <div class="home">
-        <MyModal>
-            <template v-slot:header>
 
-            </template>
-            <template v-slot:default>
-
-            </template>
-            <template v-slot:trigger>
-
-            </template>
+        <!--            Modal window with buttons inside-->
+        <MyModal
+        @open="showOpen"
+        @close="showClose">
+            <div v-for="s in sizes">
+                <MyButton
+                        @clickOn='proc'
+                        v-for="c in colors" :color=c :size=s
+                        :href="'https://google.com/'+s+'/'+c"
+                >Text of Button
+                </MyButton>
+            </div>
         </MyModal>
+
     </div>
 </template>
 
@@ -46,12 +38,24 @@
                 size: 'medium',
                 color: '',
                 href: '',
+
             }
         },
         methods: {
             proc(data) {
                 console.log(data);
-            }
+            },
+            showOpen(){
+                console.log('Open modal window')
+            },
+            showClose(){
+                console.log('Close modal window')
+            },
         }
     }
 </script>
+
+
+<style lang="less" scoped>
+
+</style>
