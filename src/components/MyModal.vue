@@ -1,7 +1,8 @@
 <template>
+<div class="modal">
     <div class="container"
     :class="{hide:isHide}">
-        <div class="modal">
+        <div class="modal-action">
             <header :class="{hide: isHide}">
                 <slot name="header">
                 </slot>
@@ -28,17 +29,19 @@
                 >X
                 </MyButton>
             </main>
-            <div>
-                <slot name="trigger">
-                    <MyButton
-                            color="primary"
-                            @clickOn="procModal"
-                    >Open/Close modal
-                    </MyButton>
-                </slot>
-            </div>
+
         </div>
     </div>
+    <div class="btnGroup">
+        <slot name="trigger">
+            <MyButton class="btnTrg"
+                    color="primary"
+                    @clickOn="procModal"
+            >Open modal
+            </MyButton>
+        </slot>
+    </div>
+</div>
 </template>
 
 <script>
@@ -63,7 +66,7 @@
     }
 </script>
 
-<style scoped lang="less">
+<style  lang="less">
     .shift {
         transform: translate(-50%, -50%);
         position: fixed;
@@ -79,12 +82,12 @@
         right: 0;
     }
 
-    .modal {
+    .modal-active {
         .shift;
         top: 50%;
         background: wheat;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         border: 3px double cornflowerblue;
         padding: 10px;
         max-height: 80%;
@@ -94,7 +97,17 @@
     }
 
     .btnClose {
-        display: inline-block;
+        display:block;
+        margin-top: 10px;
+    }
+
+    .btnGroup {
+        display: flex;
+    }
+
+    .btnTrg{
+        display: block;
+        margin-right: 10px;
         margin-top: 10px;
     }
 

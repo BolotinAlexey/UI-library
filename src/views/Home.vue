@@ -14,17 +14,17 @@
                 </MyButton>
             </div>
         </MyModal>
+        <MyModal>
+            <DataTable :items="users"
+                       :columns="columns1"
+                       :search="search1">
 
-        <DataTable :items="users"
-                   :columns="columns1"
-                   :search="search1">
-
-        </DataTable>
-
+            </DataTable>
+        </MyModal>
     </div>
 </template>
 
-<script lang="">
+<script>
     // @ is an alias to /src
     import DataTable from '@/components/DataTable.vue'
     import HelloWorld from '@/components/HelloWorld.vue'
@@ -88,6 +88,10 @@
 </script>
 
 
-<style lang="less" scoped>
-
+<style lang="less">
+    .home {
+        display: flex;
+        justify-content: center;
+        align-items: end;
+    }
 </style>

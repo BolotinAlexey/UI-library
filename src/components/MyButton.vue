@@ -62,7 +62,7 @@
     .mix2 {
         background-color: @color;
         color: @font-color;
-        display: inline-block;
+        display: block;
         text-align: center;
         text-decoration: none;
 
