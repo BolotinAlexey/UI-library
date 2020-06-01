@@ -27,26 +27,28 @@
         <MyCarousel :images="images">
         </MyCarousel>
         </MyModal>
+        <MyModal>
+            <Row>
+                <Column v-for="i in 12" :cols='12'>1/12 колонки</Column>
+            </Row>
+            <Row>
+                <Column v-for="i in 6" :cols='6'>1/6 колонки</Column>
+            </Row>
+            <Row>
+                <Column v-for="i in 4" :cols='4'>1/4 колонки</Column>
+            </Row>
+            <Row>
+                <Column v-for="i in 3" :cols='3'>1/3 колонки</Column>
+            </Row>
+            <Row>
+                <Column :cols='2'><Column :cols='2'>полколонки в полколонке</Column></Column>
+                <Column :cols='2'>1/2 колонки</Column>
+            </Row>
+            <Row>
+                <Column>Колонка по умолчанию</Column>
+            </Row>
+        </MyModal>
     </div>
-  <Row>
-    <Column v-for="i in 12" :cols='12'>1/12 колонки</Column>
-  </Row>
-  <Row>
-    <Column v-for="i in 6" :cols='6'>1/6 колонки</Column>
-  </Row>
-  <Row>
-    <Column v-for="i in 4" :cols='4'>1/4 колонки</Column>
-  </Row>
-  <Row>
-    <Column v-for="i in 3" :cols='3'>1/3 колонки</Column>
-  </Row>
-  <Row>
-    <Column :cols='2'><Column :cols='2'>полколонки в полколонке</Column></Column>
-    <Column :cols='2'>1/2 колонки</Column>
-  </Row>
-  <Row>
-    <Column>Колонка по умолчанию</Column>
-  </Row>
 
 </template>
 
