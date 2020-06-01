@@ -21,7 +21,13 @@
 
             </DataTable>
         </MyModal>
+        <MyModal>
+        <MyCarousel :images="images">
+        </MyCarousel>
+        </MyModal>
     </div>
+
+
 </template>
 
 <script>
@@ -30,6 +36,7 @@
     import HelloWorld from '@/components/HelloWorld.vue'
     import MyModal from '@/components/MyModal.vue'
     import MyButton from "@/components/MyButton.vue";
+    import MyCarousel from '@/components/MyCarousel.vue';
 
     export default {
         name: 'Home',
@@ -37,7 +44,8 @@
             HelloWorld,
             MyButton,
             DataTable,
-            MyModal
+            MyModal,
+            MyCarousel,
         },
         data() {
             return {
@@ -70,6 +78,11 @@
                         // v => toKeyboardLayout(v, 'en')
                     ]
                 },
+                images: ['https://loremflickr.com/320/240/dog',
+                    'https://loremflickr.com/320/240/cat',
+                    'https://loremflickr.com/320/240/horse',
+                    'https://loremflickr.com/320/240/men',
+                    'https://loremflickr.com/320/240/women'],
 
             }
         },
@@ -85,6 +98,7 @@
             },
         }
     }
+
 </script>
 
 
