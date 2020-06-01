@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>total</title>
+  <script src="https://kit.fontawesome.com/a92211bf3b.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <link rel="stylesheet/less" type="text/css" href="styles/grid.less"/>
+  <link rel="stylesheet" type="text/css" href="styles/grid.css"/>
+  <link rel="stylesheet/less" type="text/css" href="styles/button.less"/>
+  <link rel="stylesheet" type="text/css" href="styles/button.css"/>
+  <link rel="stylesheet" href="styles/modal.less">
+  <link rel="stylesheet" href="styles/modal.css">
+  <link rel="stylesheet" href="styles/burger.less">
+  <link rel="stylesheet" href="styles/burger.css">
+  <link rel="stylesheet" href="styles/carousel.less">
+  <link rel="stylesheet" href="styles/carousel.css">
+  <link rel="stylesheet" href="styles/data-tables.less">
+  <link rel="stylesheet" href="styles/data-tables.css">
+  <link rel="stylesheet" href="styles/my-input.css">
+
+</head>
+<body>
+<nav>
+  <div class="logo"><img src="assets/logo.png"></div>
+  <div class="burger">
+    <button><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="x">
+    <button><i>X</i></button>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="link1">Пункт 1</a></li>
+    <li><a href="link2">Пункт 2</a></li>
+    <li><a href="link2">Пункт 3</a></li>
+  </ul>
+</nav>
+<div class="buttons">
+  <button class="modal-trigger" data-target="send1">Колонки</button>
+  <button class="modal-trigger" data-target="send2">Кнопки</button>
+  <button class="modal-trigger" data-target="send3">Таблица</button>
+  <button class="modal-trigger" data-target="send4">Форма</button>
+</div>
+
+<div class="modal" id="send1">
+  <div class="container">
+    <div class="row">
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+      <div class="col-1">111</div>
+    </div>
+    <div class="row">
+      <div class="col-2">1</div>
+      <div class="col-2">1</div>
+      <div class="col-2">1</div>
+      <div class="col-2">1</div>
+      <div class="col-2">1</div>
+      <div class="col-2">1</div>
+    </div>
+    <div class="row">
+      <div class="col-3">1</div>
+      <div class="col-3">1</div>
+      <div class="col-3">1</div>
+      <div class="col-3">1</div>
+    </div>
+    <div class="row">
+      <div class="col-4">1</div>
+      <div class="col-4">1</div>
+      <div class="col-4">1</div>
+    </div>
+    <div class="row">
+      <div class="col-6">1</div>
+      <div class="col-6">1</div>
+    </div>
+    <div class="row">
+      <div class="col-12">1</div>
+    </div>
+    <div class="row">
+      <div class="col-1">1</div>
+      <div class="col-11">1</div>
+    </div>
+    <div class="row">
+      <div class="col-2">1</div>
+      <div class="col-10">1</div>
+    </div>
+    <div class="row">
+      <div class="col-3">1</div>
+      <div class="col-9">1</div>
+    </div>
+    <div class="row">
+      <div class="col-4">1</div>
+      <div class="col-8">1</div>
+    </div>
+    <div class="row">
+      <div class="col-5">1</div>
+      <div class="col-7">1</div>
+    </div>
+  </div>
+  <button class="modal-close">Понятно</button>
+  <button class="modal-close">Ok</button>
+</div>
+
+
+<div class="modal" id="send2">
+  <hr>
+  <div>
+    <div class="mybtn-secondary-small">@</div>
+    <div class="mybtn-primary-small">@</div>
+    <div class="mybtn-success-small">@</div>
+    <div class="mybtn-warning-small">@</div>
+    <div class="mybtn-danger-small">@</div>
+    <div class="mybtn-light-small">@</div>
+    <div class="mybtn-dark-small">@</div>
+  </div>
+  <hr>
+  <div>
+    <div class="mybtn-secondary-normal">@</div>
+    <div class="mybtn-primary-normal">@</div>
+    <div class="mybtn-success-normal">@</div>
+    <div class="mybtn-warning-normal">@</div>
+    <div class="mybtn-danger-normal">@</div>
+    <div class="mybtn-light-normal">@</div>
+    <div class="mybtn-dark-normal">@</div>
+  </div>
+  <hr>
+  <div>
+    <div class="mybtn-secondary-large">@</div>
+    <div class="mybtn-primary-large">@</div>
+    <div class="mybtn-success-large">@</div>
+    <div class="mybtn-warning-large">@</div>
+    <div class="mybtn-danger-large">@</div>
+    <div class="mybtn-light-large">@</div>
+    <div class="mybtn-dark-large">@</div>
+  </div>
+  <hr>
+  <div>
+    <div class="mybtn-secondary">@</div>
+    <div class="mybtn-primary">@</div>
+    <div class="mybtn-success">@</div>
+    <div class="mybtn-warning">@</div>
+    <div class="mybtn-danger">@</div>
+    <div class="mybtn-light">@</div>
+    <div class="mybtn-dark">@</div>
+  </div>
+  <button class="modal-close">Понятно</button>
+  <button class="modal-close">Ok</button>
+</div>
+
+
+<div class="modal" id="send3">
+  <div id="usersTable"></div>
+  <button class="modal-close">Понятно</button>
+  <button class="modal-close">Ok</button>
+</div>
+
+<div class="modal" id="send4">
+  <div id="app">
+    <div>
+      <my-input
+        v-for="q in questions"
+        :key="q.title"
+        :type="q.type"
+        :title="q.title"
+        :placeholder="q.placeholder"
+        :required="q.required"
+        v-model="inputValueParent"
+        :err="q.err"
+        :pattern="q.pattern"
+      />
+
+    </div>
+<!--    <pre>{{inputValueParent}}</pre>-->
+  </div>
+  <script src="js/my-input.js"></script>
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data: {
+        questions: [
+          {title: "Как тебя зовут?", placeholder: "Иван",
+            err: "Введите корректное имя",pattern: "^[a-zA-Zа-яёА-ЯЁ]+$"},
+          {title: "Сколько тебе лет?", placeholder: "15", type: "number",
+            err: "Введите возраст от 1 до 99 лет",pattern: "^\\d{1,2}$"},
+          {title: "Твой email", placeholder: "ivan@example.com", required: true,
+            err: "Введите правильный e-mail", pattern: "\\b[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,6}\\b"}
+        ],
+inputValueParent: ''
+      },
+
+    })
+  </script>
+
+</div>
+
+<script src="js/modal.js"></script>
+<script src="js/burger.js"></script>
+<script src="js/carousel.js"></script>
+<script src="js/data-tables.js"></script>
+<div id="carousel1"></div>
+<script>
+  const config2 = ["https://loremflickr.com/320/240/dog", "https://loremflickr.com/320/240/cat", "https://loremflickr.com/320/240/horse", "https://loremflickr.com/320/240/men"];
+  Carousel("carousel1", config2);
+</script>
+
+</body>
+</html>

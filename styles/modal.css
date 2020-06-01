@@ -1,0 +1,36 @@
+.shift {
+  transform: translate(-50%, -50%);
+  position: fixed;
+  left: 50%;
+}
+.modal {
+  transform: translate(-50%, -50%);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  background: wheat;
+  display: none;
+  border: 3px double cornflowerblue;
+  padding: 2%;
+  max-height: 80%;
+  max-width: 80%;
+}
+.modal button {
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.buttons {
+  transform: translate(-50%, -50%);
+  position: fixed;
+  left: 50%;
+  bottom: 5%;
+}
+.xModal {
+  position: absolute;
+  font-weight: bold;
+  color: red;
+  right: 1%;
+  top: 1%;
+}
+/*# sourceMappingURL=modal.css.map */

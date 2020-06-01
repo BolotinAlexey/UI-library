@@ -1,0 +1,35 @@
+@w: 320px;
+@h: 240px;
+
+.mix {
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+}
+
+body {
+  position: relative;
+}
+
+#carousel1 {
+  height: @h;
+  width: @w;
+  overflow: hidden;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+}
+
+.leftButton {
+  display: none;
+  left: 0;
+  .mix
+}
+
+.rightButton {
+  display: block;
+  right: 0;
+  .mix
+}

@@ -1,0 +1,182 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.row {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.col-1 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 6.33333333%;
+}
+.col-2 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 14.66666667%;
+}
+.col-3 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 23%;
+}
+.col-4 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 31.33333333%;
+}
+.col-5 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 39.66666667%;
+}
+.col-6 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 48%;
+}
+.col-7 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 56.33333333%;
+}
+.col-8 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 64.66666667%;
+}
+.col-9 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 73%;
+}
+.col-10 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 81.33333333%;
+}
+.col-11 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 89.66666667%;
+}
+.col-12 {
+  color: aqua;
+  background-color: aqua;
+  padding: 0 1px;
+  margin: 1px 2px;
+  width: 98%;
+}
+@media (max-width: 768px) {
+  .col-1 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 14.66666667%;
+  }
+  .col-2 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 31.33333333%;
+  }
+  .col-3 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 48%;
+  }
+  .col-4 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 64.66666667%;
+  }
+  .col-5 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 81.33333333%;
+  }
+  .col-6 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 98%;
+  }
+  .col-7 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 114.66666667%;
+  }
+  .col-8 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 131.33333333%;
+  }
+  .col-9 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 148%;
+  }
+  .col-10 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 164.66666667%;
+  }
+  .col-11 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 181.33333333%;
+  }
+  .col-12 {
+    color: aqua;
+    background-color: aqua;
+    padding: 0 1px;
+    margin: 1px 2px;
+    width: 198%;
+  }
+}
+/*# sourceMappingURL=grid.css.map */
