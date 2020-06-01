@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+    <div class="container"
+    :class="{hide:isHide}">
         <div class="modal">
             <header :class="{hide: isHide}">
                 <slot name="header">

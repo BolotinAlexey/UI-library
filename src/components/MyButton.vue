@@ -27,7 +27,6 @@
             href: {
                 type: String
             }
-
         },
         methods: {
             onClick: function (e) {
