@@ -1,12 +1,17 @@
 <template>
     <div class="home">
-      <!--    <img alt="Vue logo" src="../assets/logo.png">-->
-      <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
+        <!--    <img alt="Vue logo" src="../assets/logo.png">-->
+        <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
 
         <!--            Modal window with buttons inside-->
         <MyModal
+                :txtBtn=btn
                 @open="showOpen"
                 @close="showClose">
+            <template v-slot:header
+                      class="header">
+                <h2>{{btn}}</h2>
+            </template>
             <div v-for="s in sizes">
                 <MyButton
                         @clickOn='proc'
@@ -16,35 +21,57 @@
                 </MyButton>
             </div>
         </MyModal>
-        <MyModal>
+
+        <!--            Modal window with table inside-->
+        <MyModal :txt-btn=tbl>
+            <template v-slot:header
+                      class="header">
+                <h2>{{tbl}}</h2>
+            </template>
             <DataTable :items="users"
                        :columns="columns1"
                        :search="search1">
 
             </DataTable>
         </MyModal>
-        <MyModal>
-        <MyCarousel :images="images">
-        </MyCarousel>
+
+        <!--            Modal window with carousel inside-->
+        <MyModal :txt-btn=car>
+            <template v-slot:header
+                      class="header">
+                <h2>{{car}}</h2>
+            </template>
+            <MyCarousel :images="images">
+            </MyCarousel>
         </MyModal>
-        <MyModal>
+
+        <!--            Modal window with my grid inside-->
+        <MyModal :txt-btn=grid>
+            <template v-slot:header
+                      class="header">
+                <h2>{{grid}}</h2>
+            </template>
             <Row>
-                <Column v-for="i in 12" :cols='12'>1/12 колонки</Column>
+                <Column v-for="i in 12" :cols='1'>1/12</Column>
             </Row>
             <Row>
-                <Column v-for="i in 6" :cols='6'>1/6 колонки</Column>
+                <Column v-for="i in 6" :cols='2'>1/6 колонки</Column>
             </Row>
             <Row>
-                <Column v-for="i in 4" :cols='4'>1/4 колонки</Column>
+                <Column v-for="i in 4" :cols='3'>1/4 колонки</Column>
             </Row>
             <Row>
-                <Column v-for="i in 3" :cols='3'>1/3 колонки</Column>
+                <Column v-for="i in 3" :cols='4'>1/3 колонки</Column>
             </Row>
             <Row>
-                <Column :cols='2'><Column :cols='2'>полколонки в полколонке</Column></Column>
-                <Column :cols='2'>1/2 колонки</Column>
+                <Column :cols='6'>
+                    <Column :cols='6'>полколонки в полколонке</Column>
+                </Column>
+                <Column :cols='6'>1/2 колонки</Column>
             </Row>
             <Row>
+                <Column>Колонка по умолчанию</Column>
+                <Column :cols='2'>1/6 колонки</Column>
                 <Column>Колонка по умолчанию</Column>
             </Row>
         </MyModal>
@@ -54,7 +81,6 @@
 
 <script>
 
-    // @ is an alias to /src
     import DataTable from '@/components/DataTable.vue'
     import HelloWorld from '@/components/HelloWorld.vue'
     import MyModal from '@/components/MyModal.vue'
@@ -71,17 +97,21 @@
             DataTable,
             MyModal,
             MyCarousel,
-          Row,
-          Column
+            Row,
+            Column
         },
         data() {
             return {
+                btn:'КНОПКИ',
+                tbl:'ТАБЛИЦА',
+                car:'КАРУСЕЛЬ',
+                grid:'СЕТКА',
                 colors: ['primary', 'success', 'warning', 'danger', 'light', 'secondary', 'dark'],
                 sizes: ['exsmall', 'small', 'medium', 'large', 'exlarge'],
                 size: 'medium',
                 color: '',
                 href: '',
-              cols: 3,
+                cols: 3,
                 users: [
                     {id: 30050, name: 'Вася', surname: 'Петров', age: 12},
                     {id: 30051, name: 'Вася', surname: 'Васечкин', age: 15},
@@ -136,4 +166,5 @@
         justify-content: center;
         align-items: end;
     }
+
 </style>

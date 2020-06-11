@@ -1,13 +1,16 @@
 <template>
-<div class="modal">
-    <div class="container"
+<div class="total">
+    <div class="contModal"
     :class="{hide:isHide}">
         <div class="modal-action">
-            <header :class="{hide: isHide}">
+            <header class="header"
+                    :class="{hide: isHide}">
                 <slot name="header">
                 </slot>
             </header>
-            <main :class="{hide: isHide}">
+            <main class="main"
+                    :class="{hide: isHide}">
+                <div>
                 <slot >
                     <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, ab alias assumenda corporis
                         ducimus
@@ -20,7 +23,7 @@
                         ipsum iste iure laborum, maiores nisi nobis non officia possimus, quas similique, velit veniam
                         voluptas! Dolorem, magni!
                     </div>
-                </slot>
+                </slot></div>
                 <MyButton
                         class="xModal"
                         size="exsmall"
@@ -37,21 +40,29 @@
             <MyButton class="btnTrg"
                     color="primary"
                     @clickOn="procModal"
-            >Open modal
+            >{{txtBtn}}
             </MyButton>
         </slot>
     </div>
 </div>
 </template>
 
-<script>
+<script lang="ts">
     import MyButton from "@/components/MyButton.vue"
-
-    export default {
+    import Vue from 'vue';
+    export default Vue.extend({
         name: "MyModal",
         components: {
             MyButton
         },
+
+        props:{
+            txtBtn: {
+               type:String,
+               default:"Открыть"
+           }
+        },
+
         data() {
             return {
                 isHide: true
@@ -63,7 +74,7 @@
                 this.$emit((this.isHide)?'close':'open');
             },
         }
-    }
+    })
 </script>
 
 <style  lang="less">
@@ -73,7 +84,7 @@
         left: 50%;
     }
 
-    .container {
+    .contModal {
         background-color: rgba(0, 0, 0, .6);
         position: fixed;
         top: 0;
@@ -82,19 +93,29 @@
         right: 0;
     }
 
-    .modal-active {
+    .main{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .modal-action {
         .shift;
         top: 50%;
         background: wheat;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: flex-start;
         border: 3px double cornflowerblue;
         padding: 10px;
-        max-height: 80%;
-        max-width: 80%;
+        max-height: 95%;
+        max-height: 95%;
+        margin: 2%;
         overflow: auto;
-        margin: 15px;
+        @media (max-width: 767.98px) {
+            min-width: 80%;
+        }
     }
+
 
     .btnClose {
         display:block;
@@ -114,6 +135,7 @@
     .xModal {
         position: absolute;
         font-weight: bold;
+        font-size: larger;
         color: red;
         right: 0;
         top: 0;

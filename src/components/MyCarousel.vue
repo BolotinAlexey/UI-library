@@ -1,42 +1,46 @@
 <template>
-    <div class="container">
+    <div class="contCar">
+        <div class="carousel">
+            <div class="frames"
+                 :style="{width:images.length*320+'px','margin-left': -current*320+'px'}">
+                <div class="frame"
+                     :style="{}">
 
-        <div class="frame">
-            <button class="leftButton"
-                    :class="{hide:current===images.length-1}"
-                    @click="current++">
-                <img src="../assets/left.png"  height="25"/>
-            </button>
-
-            <img :src="images[current]"  alt="">
-
-            <button class="rightButton"
-                    :class="{hide: current===0}"
-                    @click="current--">
-                <img src="../assets/right.png" height="25"/>
-            </button>
+                    <button class="leftButton"
+                            :class="{hide:current===images.length-1}"
+                            @click="current++">
+                        <img src="../assets/left.png" width="25"/>
+                    </button>
+                    <span v-for="image in images">
+                    <img :src="image" alt="">
+                </span>
+                    <button class="rightButton"
+                            :class="{hide: current===0}"
+                            :style="{left: (320-25)+'px'}"
+                            @click="current--">
+                        <div><img src="../assets/right.png" width="25"/></div>
+                    </button>
+                </div>
+            </div>
         </div>
-
     </div>
 </template>
 
 <script lang="ts">
-export default {
-    name: 'MyCarousel',
-    components: {
-    },
-    props: {
-        images: Array,
-    },
-    data() {
-        return {
-            current: 0,
-        };
-    },
-};
+    export default {
+        name: 'MyCarousel',
+        props: {
+            images: Array,
+        },
+        data() {
+            return {
+                current: 0
+            };
+        },
+    };
 </script>
 
-<style scoped lang="less">
+<style lang="less">
     @w: 320px;
     @h: 240px;
 
@@ -44,27 +48,40 @@ export default {
         position: absolute;
         cursor: pointer;
         top: 50%;
-        background-color: rgba(0,0,0,0);
+        background-color: rgba(0, 0, 0, 0);
         border: none;
         padding: 0;
+
         :hover, :active {
-            background-color: rgba(0,0,0,.6);
+            background-color: rgba(0, 0, 0, .6);
             border: none;
         }
     }
 
-    .container{
-        height: @h;
+    .contCar {
         width: @w;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        height: @h;
+        position: relative;
+        margin: 5% 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .carousel {
+        justify-content: center;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .frames {
+        display: inline-block;
+        transition: all 1s;
+        height: 100%;
     }
 
     .frame {
-       display: block;
     }
+
 
     .leftButton {
         .mix;
@@ -76,7 +93,7 @@ export default {
     .rightButton {
         .mix;
         display: block;
-        right: 0;
+        left: 100%;
     }
 
     .hide {

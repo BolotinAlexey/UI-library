@@ -4,13 +4,13 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
     export default {
         name: "Row"
     }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
     .row{
         display: flex;
         flex-direction: row;

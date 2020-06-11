@@ -23,9 +23,9 @@
                             v-if="el.sortable"
                             @click="resort(el)">
                         <i class="arrows"
-                           :class="'fas fa-sort' + ((sortState.get(el))
+                           :class="'fas fa-sort' + ((!sortState.get(el))
                            ? '-down'
-                           :(sortState.get(el) - 1)
+                           :(sortState.get(el) === 1)
                            ? '' : '-up')"></i>
                     </button>
                 </th>
@@ -54,7 +54,6 @@
             return {
                 keyword: '',
                 dataSearch: Array,
-
                 sortState: {
                     type: Object,
                 },
@@ -82,18 +81,21 @@
 
         methods: {
             initSortState() {
+                let countSort=0;
                 this.sortState = new Map();
                 this.columns.forEach(el => {
                     if (el.sortable) {
-                        this.sortState.set(el, 1)
+                        this.sortState.set(el, 1);
+                        countSort++;
                     }
                 })
+                return countSort;
             },
 
             resort(el) {
                 let currentState = this.sortState.get(el);
-                this.initSortState();
-                currentState=(currentState + 1) % 3;
+                const countSearch=this.initSortState();
+                currentState=(currentState + 1) % (countSearch+1);
                  this.sortState.set(el, currentState);
                 this.sortData=this.searchData.slice().sort((a, b) => {
                     if (typeof (a[el.value]) === "number") {
@@ -144,7 +146,6 @@
     .container1 {
         margin: 10px;
         max-height: 500px;
-        overflow-y: scroll;
     }
 
     table {

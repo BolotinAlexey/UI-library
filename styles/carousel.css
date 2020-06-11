@@ -2,7 +2,6 @@
   position: absolute;
   cursor: pointer;
   top: 50%;
-  right: 0;
 }
 body {
   position: relative;
@@ -19,15 +18,16 @@ body {
 }
 .leftButton {
   display: none;
+  left: 0;
   position: absolute;
   cursor: pointer;
   top: 50%;
-  left: 0;
 }
 .rightButton {
   display: block;
+  right: 0;
   position: absolute;
   cursor: pointer;
   top: 50%;
-  right: 0;
 }
+/*# sourceMappingURL=carousel.css.map */

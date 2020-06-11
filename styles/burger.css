@@ -17,7 +17,6 @@ nav {
 .x {
   display: none;
   visibility: hidden;
-  visibility: hidden;
 }
 li {
   padding-right: 10px;
@@ -34,16 +33,14 @@ a {
   .burger {
     position: absolute;
     right: 10px;
-    display: inline-block;
+    display: block;
     visibility: visible;
-
   }
   .x {
     position: absolute;
     right: 10px;
     display: none;
     visibility: visible;
-
   }
   .x i {
     font-weight: bold;
@@ -81,3 +78,4 @@ a {
     display: block;
   }
 }
+/*# sourceMappingURL=burger.css.map */

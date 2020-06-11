@@ -1,33 +1,31 @@
 <template>
     <div class="col"
-         :style="{width: 100/cols+'%'}">
+         :style="{width: 100*cols/12+'%'}">
         <slot></slot>
     </div>
 </template>
 
-<script>
+<script lang="ts">
     export default {
         name: "Column",
-        default: 3,
         props: {
             cols: {
                 type: Number,
-                default: 3,
-                validator: function (value) {
+                default: 12,
+                validator: function (value:number) {
                     return value >= 1 && value <= 12
                 }
-            }
+            },
         }
     }
 </script>
 
-<style scoped lang="less">
+<style  lang="less">
     .col {
         display: flex;
-        margin: 4px 2px;
+        margin: 2px 1px;
         padding: 2px 1px;
         background-color: #888888;
         border: 1px solid red ;
-
     }
 </style>
