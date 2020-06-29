@@ -1,9 +1,17 @@
 <template>
     <div class="home">
-        <!--    <img alt="Vue logo" src="../assets/logo.png">-->
-        <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
-
-        <!--            Modal window with buttons inside-->
+        <Navbar>
+            <template v-slot:brand>
+                <img src="../assets/myLogo.png" alt="logo"/>
+            </template>
+            <template v-slot:menu>
+                <router-link to="/button">MyButton</router-link>
+                <router-link to="/grid">MyGrid</router-link>
+                <router-link to="/modal">MyModal</router-link>
+                <router-link to="/carousel">MyCarousel</router-link>
+                <router-link to="/table">MyTable</router-link>
+            </template>
+        </Navbar>
         <MyModal
                 :txtBtn=btn
                 @open="showOpen"
@@ -80,7 +88,7 @@
 </template>
 
 <script>
-
+    import Navbar from '@/components/Navbar.vue'
     import DataTable from '@/components/DataTable.vue'
     import HelloWorld from '@/components/HelloWorld.vue'
     import MyModal from '@/components/MyModal.vue'
@@ -92,6 +100,7 @@
     export default {
         name: 'Home',
         components: {
+            Navbar,
             HelloWorld,
             MyButton,
             DataTable,

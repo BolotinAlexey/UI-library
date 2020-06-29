@@ -12,16 +12,8 @@
                     :class="{hide: isHide}">
                 <div>
                 <slot >
-                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, ab alias assumenda corporis
-                        ducimus
-                        eos error esse excepturi, libero magni, placeat praesentium qui quo rerum tempore veniam
-                        veritatis
-                        vitae voluptas?
-                    </div>
-                    <div>At blanditiis commodi deleniti dicta doloremque doloribus dolorum esse et excepturi explicabo
-                        harum
-                        ipsum iste iure laborum, maiores nisi nobis non officia possimus, quas similique, velit veniam
-                        voluptas! Dolorem, magni!
+                    <div>
+                        default text
                     </div>
                 </slot></div>
                 <MyButton

@@ -94,8 +94,8 @@
 
             resort(el) {
                 let currentState = this.sortState.get(el);
-                const countSearch=this.initSortState();
-                currentState=(currentState + 1) % (countSearch+1);
+                const countSort=this.initSortState();
+                currentState=(currentState + 1) % (countSort+1);
                  this.sortState.set(el, currentState);
                 this.sortData=this.searchData.slice().sort((a, b) => {
                     if (typeof (a[el.value]) === "number") {
@@ -112,7 +112,7 @@
                 const arraySearchFields = (this.search.fields != null)
                     ? this.search.fields
                     : this.columns.map(item => item.value);
-                const arrayFilters = (this.search.filters == null)
+                const arrayFilters = (this.search.filters != null)
                     ? this.search.filters
                     : [v => v];
                 return this.items.filter(us => {
