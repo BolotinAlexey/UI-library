@@ -12,6 +12,7 @@
                 <router-link to="/table">MyTable</router-link>
             </template>
         </Navbar>
+
         <MyModal
                 :txtBtn=btn
                 @open="showOpen"
@@ -88,6 +89,7 @@
 </template>
 
 <script>
+    import VueMarkdown from 'vue-markdown'
     import Navbar from '@/components/Navbar.vue'
     import DataTable from '@/components/DataTable.vue'
     import HelloWorld from '@/components/HelloWorld.vue'
@@ -100,6 +102,7 @@
     export default {
         name: 'Home',
         components: {
+            VueMarkdown,
             Navbar,
             HelloWorld,
             MyButton,

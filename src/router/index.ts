@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
-import MyButtonView from '../views/MyButtonView.vue';
 
 Vue.use(VueRouter);
 
@@ -22,27 +21,27 @@ const routes: RouteConfig[] = [
   {
     path: '/button',
     name: 'MyButtonView',
-    component: () => import(/* webpackChunkName: "button" */ '../views/MyButtonView.vue'),
+    component: () => import('../views/MyButtonView.vue'),
   },
   {
     path: '/grid',
     name: 'MyGridView',
-    component: () => import(/* webpackChunkName: "grid" */'../views/MyGridView.vue'),
+    component: () => import('../views/MyGridView.vue'),
   },
   {
     path: '/modal',
     name: 'Modal',
-    component: () => import(/* webpackChunkName: "modal" */ '../views/MyModalView.vue'),
+    component: () => import('../views/MyModalView.vue'),
   },
   {
     path: '/carousel',
     name: 'Carousel',
-    component: () => import(/* webpackChunkName: "carousel" */ '../views/MyCarouselView.vue'),
+    component: () => import('../views/MyCarouselView.vue'),
   },
   {
     path: '/table',
     name: 'Table',
-    component: () => import(/* webpackChunkName: "table" */ '../views/MyTableView.vue'),
+    component: () => import('../views/MyTableView.vue'),
   },
 ];
 
