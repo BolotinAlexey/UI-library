@@ -22,15 +22,15 @@
             },
             color: {
                 type: String,
-                required: true,
+                default: 'primary',
             },
             href: {
                 type: String
             }
         },
         methods: {
-            onClick: function (e) {
-                this.$emit('clickOn', e.target);
+            onClick(e) {
+                this.$emit('click', e.target);
             }
         }
     }
@@ -109,7 +109,7 @@
             .mix2;
         }
         .shadow {
-            box-shadow: 0px 0px 50px 14px @shadow-color;
+            box-shadow: 0 0 50px 14px @shadow-color;
         }
         .color-generator2(@i + 1, @j)
     }

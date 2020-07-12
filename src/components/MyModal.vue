@@ -20,7 +20,7 @@
                         class="xModal"
                         size="exsmall"
                         color="danger"
-                        @clickOn="procModal"
+                        @click="procModal"
                 >X
                 </MyButton>
             </main>
@@ -31,7 +31,7 @@
         <slot name="trigger">
             <MyButton class="btnTrg"
                     color="primary"
-                    @clickOn="procModal"
+                    @click="procModal"
             >{{txtBtn}}
             </MyButton>
         </slot>
@@ -40,33 +40,33 @@
 </template>
 
 <script lang="ts">
-    import MyButton from "@/components/MyButton.vue"
-    import Vue from 'vue';
-    export default Vue.extend({
-        name: "MyModal",
-        components: {
-            MyButton
-        },
+import MyButton from '@/components/MyButton.vue';
+import Vue from 'vue';
+export default Vue.extend({
+    name: 'MyModal',
+    components: {
+        MyButton,
+    },
 
-        props:{
-            txtBtn: {
-               type:String,
-               default:"Открыть"
-           }
-        },
+    props: {
+        txtBtn: {
+           type: String,
+           default: 'Открыть',
+       },
+    },
 
-        data() {
-            return {
-                isHide: true
-            }
+    data() {
+        return {
+            isHide: true,
+        };
+    },
+    methods: {
+        procModal() {
+            this.isHide = !this.isHide;
+            this.$emit((this.isHide) ? 'close' : 'open');
         },
-        methods: {
-            procModal() {
-                this.isHide=!this.isHide;
-                this.$emit((this.isHide)?'close':'open');
-            },
-        }
-    })
+    },
+});
 </script>
 
 <style  lang="less">
@@ -99,7 +99,6 @@
         justify-content: flex-start;
         border: 3px double cornflowerblue;
         padding: 10px;
-        max-height: 95%;
         max-height: 95%;
         margin: 2%;
         overflow: auto;

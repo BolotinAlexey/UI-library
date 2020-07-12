@@ -1,103 +1,117 @@
 <template>
-    <div class="contCar">
-        <div class="carousel">
-            <div class="frames"
-                 :style="{width:images.length*320+'px','margin-left': -current*320+'px'}">
-                <div class="frame"
-                     :style="{}">
-
-                    <button class="leftButton"
-                            :class="{hide:current===images.length-1}"
-                            @click="current++">
-                        <img src="../assets/left.png" width="25"/>
-                    </button>
-                    <span v-for="image in images">
-                    <img :src="image" alt="">
-                </span>
-                    <button class="rightButton"
-                            :class="{hide: current===0}"
-                            :style="{left: (320-25)+'px'}"
-                            @click="current--">
-                        <div><img src="../assets/right.png" width="25"/></div>
-                    </button>
-                </div>
-            </div>
+  <div class="carousel"
+       :style="carouselStyle">
+      <div class="frames"
+           :style="framesStyle">
+        <button class="leftButton"
+                :class="{hide:currentSlide===images.length-1}"
+                @click="currentSlide++">
+          <img src="../assets/left.png" alt="" width="25"/>
+        </button>
+        <div
+          v-for="image in images">
+          <img :src="image"
+               :style="imgStyle">
         </div>
+        <button class="rightButton"
+                :class="{hide: currentSlide===0}"
+                @click="currentSlide--">
+          <img src="../assets/right.png" alt="" width="25"/>
+        </button>
+      </div>
     </div>
 </template>
 
 <script lang="ts">
-    export default {
-        name: 'MyCarousel',
-        props: {
-            images: Array,
-        },
-        data() {
-            return {
-                current: 0
-            };
-        },
+import Vue from 'vue';
+
+export default Vue.extend({
+  name: 'MyCarousel',
+  props: {
+    images: {
+      type: Array,
+      default: () => [],
+    },
+    width: {
+      type: Number,
+      default: 320,
+    },
+    speed: {
+      type: Number,
+      default: .5,
+    },
+  },
+
+
+  data() {
+    return {
+      currentSlide: 0,
     };
+  },
+  computed: {
+    carouselStyle(): object {
+      return {
+        width: this.width + 'px',
+      };
+    },
+    framesStyle(): object {
+      const ml: number = -this.currentSlide * 100;
+      return {
+        'margin-left': ml + '%',
+        'transition': 'all ' + this.speed + 's',
+      };
+    },
+    imgStyle(): object {
+      return {
+        'width': this.width + 'px',
+        'object-fit': 'cover'};
+    },
+  },
+});
 </script>
 
 <style lang="less">
-    @w: 320px;
-    @h: 240px;
+  .mix {
+    position: absolute;
+    top: 50%;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    padding: 0;
+    cursor: pointer;
 
-    .mix {
-        position: absolute;
-        cursor: pointer;
-        top: 50%;
-        background-color: rgba(0, 0, 0, 0);
-        border: none;
-        padding: 0;
-
-        :hover, :active {
-            background-color: rgba(0, 0, 0, .6);
-            border: none;
-        }
+    :hover, :active {
+      background-color: rgba(0, 0, 0, .6);
+      border: none;
     }
+  }
 
-    .contCar {
-        width: @w;
-        height: @h;
-        position: relative;
-        margin: 5% 0;
-        display: flex;
-        justify-content: center;
-    }
+  .carousel {
+    position: relative;
+    margin: 3%;
+    overflow: hidden;
+  }
 
-    .carousel {
-        justify-content: center;
-        height: 100%;
-        overflow: hidden;
-    }
+  .frames {
+    display: flex;
 
-    .frames {
-        display: inline-block;
-        transition: all 1s;
-        height: 100%;
-    }
-
-    .frame {
-    }
+  }
 
 
-    .leftButton {
-        .mix;
-        display: block;
-        left: 0;
+  .leftButton {
+    .mix;
+    display: block;
+    left: 3%;
 
-    }
+  }
 
-    .rightButton {
-        .mix;
-        display: block;
-        left: 100%;
-    }
+  .rightButton {
+    .mix;
+    display: block;
+    right: 3%;
+  }
 
-    .hide {
-        display: none;
-    }
+  .hide {
+    display: none;
+  }
 
 </style>

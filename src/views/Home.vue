@@ -23,7 +23,7 @@
             </template>
             <div v-for="s in sizes">
                 <MyButton
-                        @clickOn='proc'
+                        @click='proc'
                         v-for="c in colors" :color=c :size=s
                         :href="'https://google.com/'+s+'/'+c"
                 >{{c}} {{s}}
@@ -178,5 +178,4 @@
         justify-content: center;
         align-items: end;
     }
-
 </style>
