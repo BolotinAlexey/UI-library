@@ -47,92 +47,88 @@
   </div>
 </template>
 
-<script lang="js">
-  export default {
-    name: "DataTable",
-    data() {
-      return {
-        keyword: '',
-        dataSearch: Array,
-        sortState: {
-          type: Object,
-        },
-      }
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
+  name: 'DataTable',
+  data() {
+    return {
+      keyword: '',
+      dataSearch: Array,
+      sortState: new Map<object, number>(),
+    };
+  },
+
+  created() {
+    this.initSortState();
+  },
+
+  props: {
+    items: {
+      type: Array,
+      required: true,
+    },
+    columns: {
+      type: Array,
+      required: true,
+    },
+    search: {
+      type: Object,
+      default: null,
+    },
+  },
+
+  methods: {
+    initSortState(): void {
+      this.columns.forEach((el: any) => {
+        if (el.sortable === true) {
+          this.sortState.set(el, 1);
+        }
+      });
     },
 
-    created() {
-      this.initSortState()
+    resort(el: object) {
+      let currentState: any = this.sortState.get(el);
+      this.initSortState();
+      currentState = (currentState + 1) % 3;
+      this.sortState.set(el, currentState);
+    },
+  },
+
+
+  computed: {
+    searchData() {
+      const arraySearchFields = (this.search.fields != null)
+        ? this.search.fields
+        : this.columns.map((item: any) => item.value);
+      const arrayFilters = (this.search.filters != null)
+        ? this.search.filters
+        : [(v: any) => v];
+      return this.items.filter((us: any) => {
+        return arraySearchFields.filter((nameAtr: string) => {
+          return arrayFilters.filter((nameFilter: any) => {
+              return nameFilter(us[nameAtr]).includes(nameFilter(this.keyword));
+            },
+          ).length;
+        }).length;
+      });
     },
 
-    props: {
-      items: {
-        type: Array,
-        required: true,
-      },
-      columns: {
-        type: Array,
-        required: true,
-      },
-      search: {
-        type: Object,
-        default: null
-      }
-    },
-
-    methods: {
-      initSortState() {
-        this.sortState = new Map();
-        this.columns.forEach(el => {
-          if (el.sortable) {
-            this.sortState.set(el, 1);
+    sortData() {
+        const element: any = this.columns.find(((elem: any) => elem.sortable && this.sortState.get(elem) !== 1));
+        const newState: any = (element !== null) ? this.sortState.get(element) : 0;
+        return (element) ? this.searchData.slice().sort((a: any, b: any) => {
+          if (typeof (a[element.value]) === 'number') {
+            return (1 - newState) * (a[element.value] - b[element.value]);
+          } else { return (1 - newState) *
+            ((a[element.value].toLowerCase() < b[element.value].toLowerCase()) ? 1 : -1);
           }
-        })
+        }) : this.searchData;
       },
+  },
 
-      resort(el) {
-        let currentState = this.sortState.get(el);
-        this.initSortState();
-        currentState = (currentState + 1) % 3;
-        this.sortState.set(el, currentState);
-      }
-    },
-
-
-    computed: {
-      searchData() {
-        const arraySearchFields = (this.search.fields != null)
-          ? this.search.fields
-          : this.columns.map(item => item.value);
-        const arrayFilters = (this.search.filters != null)
-          ? this.search.filters
-          : [v => v];
-        return this.items.filter(us => {
-          return arraySearchFields.filter(nameAtr => {
-            return arrayFilters.filter(nameFilter => {
-                return nameFilter(us[nameAtr]).includes(nameFilter(this.keyword));
-              }
-            ).length;
-          }).length;
-        });
-      },
-
-      sortData: {
-        get: function () {
-          let element = this.columns.find((elem => elem.sortable && this.sortState.get(elem) !== 1));
-          const newState = element !== null && this.sortState.get(element);
-
-          return (element) ? this.searchData.slice().sort((a, b) => {
-            if (typeof (a[element.value]) === "number") {
-              return (1 - newState) * (a[element.value] - b[element.value]);
-            } else return (1 - newState) *
-              ((a[element.value].toLowerCase() < b[element.value].toLowerCase()) ? 1 : -1);
-          }) : this.searchData
-        },
-
-      }
-    },
-
-  }
+});
 </script>
 
 <style lang="less">

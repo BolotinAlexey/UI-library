@@ -2,14 +2,13 @@
 <div class="total">
     <div class="contModal"
     :class="{hide:isHide}">
-        <div class="modal-action">
-            <header class="header"
-                    :class="{hide: isHide}">
+        <div class="modal-action"
+        :style="{ 'background':bgcolor}">
+            <header class="header">
                 <slot name="header">
                 </slot>
             </header>
-            <main class="main"
-                    :class="{hide: isHide}">
+            <main class="main">
                 <div>
                 <slot >
                     <div>
@@ -51,8 +50,12 @@ export default Vue.extend({
     props: {
         txtBtn: {
            type: String,
-           default: 'Открыть',
+           default: 'Open',
        },
+      bgcolor: {
+          type: String,
+        default: 'wheat',
+      },
     },
 
     data() {
@@ -93,12 +96,11 @@ export default Vue.extend({
     .modal-action {
         .shift;
         top: 50%;
-        background: wheat;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         border: 3px double cornflowerblue;
-        padding: 10px;
+        padding: 20px;
         max-height: 95%;
         margin: 2%;
         overflow: auto;
