@@ -6,16 +6,18 @@
         <label>Enter the search word:
           <input type="search"
                  placeholder="Search"
-                 v-model="keyword">
+                 v-model="keyword"
+                 :style="{'background-color': bgcolorBody}">
         </label>
       </div>
     </div>
     <table class="table">
       <!--            drawing of the head-->
-      <thead class="tableHead">
+      <thead class="tableHead"
+             :style="styleMenuHead">
       <tr class="trHead">
         <th class="tableHead">№</th>
-        <th v-for="el in columns"
+        <th v-for="el in myColumns"
             class="tableHead"
             :class="{alignRight: el.type==='number'}">
           {{el.title}}
@@ -33,10 +35,11 @@
       </thead>
 
       <!--            table body drawing-->
-      <tbody class="tableBody">
+      <tbody class="tableBody"
+             :style="styleMenuBody">
       <tr v-for="(tr,index) in sortData" class="trBody">
         <td class="tdBody">{{index+1}}</td>
-        <td v-for="td in columns"
+        <td v-for="td in myColumns"
             class="tdBody"
             :class="{alignRight: td.type==='number'}"
         >{{tr[td.value]}}
@@ -48,6 +51,12 @@
 </template>
 
 <script lang="ts">
+interface Column {
+  title: string;
+  value: string;
+  sortable?: boolean;
+}
+
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -55,12 +64,23 @@ export default Vue.extend({
   data() {
     return {
       keyword: '',
-      dataSearch: Array,
       sortState: new Map<object, number>(),
+      myColumns: new Array<unknown>(),
+      arraySizes: ['smaller', 'small', 'medium', 'large', 'larger'],
+      mySize: 2,
     };
   },
 
   created() {
+    if (this.columns) {
+      this.myColumns = this.columns;
+    } else {
+      const obj: Column = this.items[0] as Column;
+      for (const key in Object.keys(obj)) {
+        this.myColumns.push({title: key.toLocaleUpperCase(), value: key});
+      }
+    }
+    this.initSize();
     this.initSortState();
   },
 
@@ -71,17 +91,35 @@ export default Vue.extend({
     },
     columns: {
       type: Array,
-      required: true,
     },
     search: {
       type: Object,
       default: null,
     },
+    bgcolorHead: {
+      type: String,
+      default: 'aquamarine',
+    },
+    txtcolorHead: {
+      type: String,
+      default: 'black',
+    },
+    bgcolorBody: {
+      type: String,
+      default: 'antiquewhite',
+    },
+    txtcolorBody: {
+      type: String,
+      default: 'darkblue',
+    },
+    size: {
+      type: Number,
+    },
   },
 
   methods: {
     initSortState(): void {
-      this.columns.forEach((el: any) => {
+      this.myColumns.forEach((el: any) => {
         if (el.sortable === true) {
           this.sortState.set(el, 1);
         }
@@ -94,38 +132,63 @@ export default Vue.extend({
       currentState = (currentState + 1) % 3;
       this.sortState.set(el, currentState);
     },
+
+    initSize(): void {
+      this.mySize = (this.size < 1) ? 1
+        : (this.size > this.arraySizes.length - 1)
+          ? this.arraySizes.length - 1 : this.size;
+    },
   },
 
 
   computed: {
-    searchData() {
-      const arraySearchFields = (this.search.fields != null)
-        ? this.search.fields
-        : this.columns.map((item: any) => item.value);
-      const arrayFilters = (this.search.filters != null)
-        ? this.search.filters
-        : [(v: any) => v];
-      return this.items.filter((us: any) => {
-        return arraySearchFields.filter((nameAtr: string) => {
-          return arrayFilters.filter((nameFilter: any) => {
-              return nameFilter(us[nameAtr]).includes(nameFilter(this.keyword));
-            },
-          ).length;
-        }).length;
-      });
+    searchData(): any[] {
+      if (this.search) {
+        const arraySearchFields = (this.search.fields != null)
+          ? this.search.fields
+          : this.myColumns.map((item: any) => item.value);
+        const arrayFilters = (this.search.filters != null)
+          ? this.search.filters
+          : [(v: any) => v];
+        return this.items.filter((us: any) => {
+          return arraySearchFields.filter((nameAtr: string) => {
+            return arrayFilters.filter((nameFilter: any) => {
+                return nameFilter(us[nameAtr]).includes(nameFilter(this.keyword));
+              },
+            ).length;
+          }).length;
+        });
+      } else { return this.items; }
     },
 
-    sortData() {
-        const element: any = this.columns.find(((elem: any) => elem.sortable && this.sortState.get(elem) !== 1));
-        const newState: any = (element !== null) ? this.sortState.get(element) : 0;
-        return (element) ? this.searchData.slice().sort((a: any, b: any) => {
-          if (typeof (a[element.value]) === 'number') {
-            return (1 - newState) * (a[element.value] - b[element.value]);
-          } else { return (1 - newState) *
+    sortData(): any[] {
+      const element: any = this.myColumns.find(((elem: any) => elem.sortable && this.sortState.get(elem) !== 1));
+      const newState: any = (element !== null) ? this.sortState.get(element) : 0;
+      return (element) ? this.searchData.slice().sort((a: any, b: any) => {
+        if (typeof (a[element.value]) === 'number') {
+          return (1 - newState) * (a[element.value] - b[element.value]);
+        } else {
+          return (1 - newState) *
             ((a[element.value].toLowerCase() < b[element.value].toLowerCase()) ? 1 : -1);
-          }
-        }) : this.searchData;
-      },
+        }
+      }) : this.searchData;
+    },
+
+    styleMenuHead(): object {
+      return {
+        'background-color': this.bgcolorHead,
+        'color': this.txtcolorHead,
+        'font-size': this.arraySizes[this.mySize],
+      };
+    },
+
+    styleMenuBody(): object {
+      return {
+        'background-color': this.bgcolorBody,
+        'color': this.txtcolorBody,
+        'font-size': this.arraySizes[this.mySize - 1],
+      };
+    },
   },
 
 });
@@ -144,20 +207,15 @@ export default Vue.extend({
 
   th {
     font-style: italic;
-    font-size: large;
-    background-color: aquamarine;
   }
 
   td {
-    color: darkblue;
-    background-color: antiquewhite;
     text-align: center;
   }
 
   th, td {
     padding: 5px 10px;
     border: 1px solid black;
-    height: 20px;
   }
 
   th button {
