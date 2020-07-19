@@ -43,6 +43,11 @@ const routes: RouteConfig[] = [
     name: 'Table',
     component: () => import('../views/MyTableView.vue'),
   },
+  {
+    path: '/navbar',
+    name: 'Navbar',
+    component: () => import('../views/NavbarView.vue'),
+  },
 ];
 
 const router = new VueRouter({

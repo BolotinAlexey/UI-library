@@ -129,7 +129,7 @@
     <hr>
     <br>
     <Vue-markdown>
-    ## **Props**
+    ## **Table of props**
     </Vue-markdown>
     <DataTable :items="buttonProperties"
                :columns="buttonColumns"

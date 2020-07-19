@@ -10,6 +10,7 @@
                 <router-link to="/modal">MyModal</router-link>
                 <router-link to="/carousel">MyCarousel</router-link>
                 <router-link to="/table">MyTable</router-link>
+              <router-link to="/navbar">Navbar</router-link>
             </template>
         </Navbar>
 

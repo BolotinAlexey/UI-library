@@ -160,7 +160,7 @@ import MyButton from "*.vue";import DataTable from "*.vue";
     <hr>
     <br>
     <Vue-markdown>
-      ## **Props**
+      ## **Table of props**
     </Vue-markdown>
     <DataTable
     DataTable :items="carouselProperties"

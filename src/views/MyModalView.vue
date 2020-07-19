@@ -56,7 +56,7 @@
       ## **Background color**
     </Vue-markdown>
     <p>
-      The props "bgcolor", which is of type String and has the name of the standard
+      The props <code>bgcolor</code>, which is of type string and has the name of the standard
       color scheme, is responsible for the background color of the modal window.
       By default, the background color has the value: 'wheat':
     </p>
@@ -175,7 +175,7 @@
     <hr>
     <br>
     <Vue-markdown>
-      ## **Props**
+      ## **Table of props**
     </Vue-markdown>
     <DataTable :items="modalProperties"
                :columns="modalColumns"

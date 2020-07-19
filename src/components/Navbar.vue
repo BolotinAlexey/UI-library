@@ -25,7 +25,8 @@
 
     <div class="menu"
          v-if="showMenu">
-      <slot name="menu">
+      <slot name="menu"
+            :style="{'color':txtcolor}">
       </slot>
     </div>
 
@@ -62,6 +63,7 @@ export default Vue.extend({
       return {
         'background-color': this.bgcolor,
         'color': this.txtcolor,
+
       };
     },
   },
@@ -110,7 +112,6 @@ export default Vue.extend({
   }
 
   a {
-    color: wheat;
     text-decoration: none;
     margin: 4px;
 

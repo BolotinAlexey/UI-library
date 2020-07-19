@@ -51,147 +51,155 @@
 </template>
 
 <script lang="ts">
-interface Column {
-  title: string;
-  value: string;
-  sortable?: boolean;
-}
+  interface Column {
+    title: string;
+    value: string;
+    sortable?: boolean;
+    type?: string;
+  }
 
-import Vue from 'vue';
+  import Vue from 'vue';
 
-export default Vue.extend({
-  name: 'DataTable',
-  data() {
-    return {
-      keyword: '',
-      sortState: new Map<object, number>(),
-      myColumns: new Array<unknown>(),
-      arraySizes: ['smaller', 'small', 'medium', 'large', 'larger'],
-      mySize: 2,
-    };
-  },
-
-  created() {
-    if (this.columns) {
-      this.myColumns = this.columns;
-    } else {
-      const obj: Column = this.items[0] as Column;
-      for (const key in Object.keys(obj)) {
-        this.myColumns.push({title: key.toLocaleUpperCase(), value: key});
-      }
-    }
-    this.initSize();
-    this.initSortState();
-  },
-
-  props: {
-    items: {
-      type: Array,
-      required: true,
-    },
-    columns: {
-      type: Array,
-    },
-    search: {
-      type: Object,
-      default: null,
-    },
-    bgcolorHead: {
-      type: String,
-      default: 'aquamarine',
-    },
-    txtcolorHead: {
-      type: String,
-      default: 'black',
-    },
-    bgcolorBody: {
-      type: String,
-      default: 'antiquewhite',
-    },
-    txtcolorBody: {
-      type: String,
-      default: 'darkblue',
-    },
-    size: {
-      type: Number,
-    },
-  },
-
-  methods: {
-    initSortState(): void {
-      this.myColumns.forEach((el: any) => {
-        if (el.sortable === true) {
-          this.sortState.set(el, 1);
-        }
-      });
+  export default Vue.extend({
+    name: 'DataTable',
+    data() {
+      return {
+        keyword: '',
+        sortState: new Map<object, number>(),
+        myColumns: new Array<unknown>(),
+        arraySizes: ['smaller', 'small', 'medium', 'large', 'larger'],
+        mySize: 3,
+      };
     },
 
-    resort(el: object) {
-      let currentState: any = this.sortState.get(el);
+    created() {
+      this.initColumns();
+      this.initSize();
       this.initSortState();
-      currentState = (currentState + 1) % 3;
-      this.sortState.set(el, currentState);
     },
 
-    initSize(): void {
-      this.mySize = (this.size < 1) ? 1
-        : (this.size > this.arraySizes.length - 1)
-          ? this.arraySizes.length - 1 : this.size;
+    props: {
+      items: {
+        type: Array,
+        required: true,
+      },
+      columns: {
+        type: Array,
+      },
+      search: {
+        type: Object,
+        default: null,
+      },
+      bgcolorHead: {
+        type: String,
+        default: 'aquamarine',
+      },
+      txtcolorHead: {
+        type: String,
+        default: 'black',
+      },
+      bgcolorBody: {
+        type: String,
+        default: 'antiquewhite',
+      },
+      txtcolorBody: {
+        type: String,
+        default: 'darkblue',
+      },
+      size: {
+        type: Number,
+        default: 3,
+      },
     },
-  },
 
-
-  computed: {
-    searchData(): any[] {
-      if (this.search) {
-        const arraySearchFields = (this.search.fields != null)
-          ? this.search.fields
-          : this.myColumns.map((item: any) => item.value);
-        const arrayFilters = (this.search.filters != null)
-          ? this.search.filters
-          : [(v: any) => v];
-        return this.items.filter((us: any) => {
-          return arraySearchFields.filter((nameAtr: string) => {
-            return arrayFilters.filter((nameFilter: any) => {
-                return nameFilter(us[nameAtr]).includes(nameFilter(this.keyword));
-              },
-            ).length;
-          }).length;
+    methods: {
+      initSortState(): void {
+        this.myColumns.forEach((el: any) => {
+          if (el.sortable === true) {
+            this.sortState.set(el, 1);
+          }
         });
-      } else { return this.items; }
-    },
+      },
 
-    sortData(): any[] {
-      const element: any = this.myColumns.find(((elem: any) => elem.sortable && this.sortState.get(elem) !== 1));
-      const newState: any = (element !== null) ? this.sortState.get(element) : 0;
-      return (element) ? this.searchData.slice().sort((a: any, b: any) => {
-        if (typeof (a[element.value]) === 'number') {
-          return (1 - newState) * (a[element.value] - b[element.value]);
+      resort(el: object) {
+        let currentState: any = this.sortState.get(el);
+        this.initSortState();
+        currentState = (currentState + 1) % 3;
+        this.sortState.set(el, currentState);
+      },
+
+      initColumns() {
+        if (this.columns) {
+          this.myColumns = this.columns;
         } else {
-          return (1 - newState) *
-            ((a[element.value].toLowerCase() < b[element.value].toLowerCase()) ? 1 : -1);
+          const obj: Column = this.items[0] as Column;
+          for (const key in obj) {
+            this.myColumns.push({title: key.toLocaleUpperCase(), value: key});
+          }
         }
-      }) : this.searchData;
+      },
+
+      initSize() {
+        this.mySize = (this.size < 1) ? 1
+          : (this.size > this.arraySizes.length - 1)
+            ? this.arraySizes.length - 1 : this.size;
+      },
     },
 
-    styleMenuHead(): object {
-      return {
-        'background-color': this.bgcolorHead,
-        'color': this.txtcolorHead,
-        'font-size': this.arraySizes[this.mySize],
-      };
+
+    computed: {
+      searchData(): any[] {
+        if (this.search) {
+          const arraySearchFields = (this.search.fields != null)
+            ? this.search.fields
+            : this.myColumns.map((item: any) => item.value);
+          const arrayFilters = (this.search.filters != null)
+            ? this.search.filters
+            : [(v: any) => v];
+          return this.items.filter((us: any) => {
+            return arraySearchFields.filter((nameAtr: string) => {
+              return arrayFilters.filter((nameFilter: any) => {
+                  return nameFilter(us[nameAtr]).includes(nameFilter(this.keyword));
+                },
+              ).length;
+            }).length;
+          });
+        } else {
+          return this.items;
+        }
+      },
+
+      sortData(): any[] {
+        const element: any = this.myColumns.find(((elem: any) => elem.sortable && this.sortState.get(elem) !== 1));
+        const newState: any = (element !== null) ? this.sortState.get(element) : 0;
+        return (element) ? this.searchData.slice().sort((a: any, b: any) => {
+          if (typeof (a[element.value]) === 'number') {
+            return (1 - newState) * (a[element.value] - b[element.value]);
+          } else {
+            return (1 - newState) *
+              ((a[element.value].toLowerCase() < b[element.value].toLowerCase()) ? 1 : -1);
+          }
+        }) : this.searchData;
+      },
+
+      styleMenuHead(): object {
+        return {
+          'background-color': this.bgcolorHead,
+          'color': this.txtcolorHead,
+          'font-size': this.arraySizes[this.mySize],
+        };
+      },
+
+      styleMenuBody(): object {
+        return {
+          'background-color': this.bgcolorBody,
+          'color': this.txtcolorBody,
+          'font-size': this.arraySizes[this.mySize - 1],
+        };
+      },
     },
 
-    styleMenuBody(): object {
-      return {
-        'background-color': this.bgcolorBody,
-        'color': this.txtcolorBody,
-        'font-size': this.arraySizes[this.mySize - 1],
-      };
-    },
-  },
-
-});
+  });
 </script>
 
 <style lang="less">
