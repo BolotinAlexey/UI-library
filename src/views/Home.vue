@@ -4,7 +4,8 @@
             <template v-slot:brand>
                 <img src="../assets/myLogo.png" alt="logo"/>
             </template>
-            <template v-slot:menu>
+            <template v-slot:menu
+            :style="{'color':'white'}">
                 <router-link to="/button">MyButton</router-link>
                 <router-link to="/grid">MyGrid</router-link>
                 <router-link to="/modal">MyModal</router-link>
