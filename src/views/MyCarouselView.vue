@@ -175,12 +175,12 @@ import MyButton from "*.vue";import DataTable from "*.vue";
 </template>
 
 <script>
-  import VueMarkdown from "vue-markdown";
-  import DataTable from "@/components/DataTable.vue";
-  import MyCarousel from "@/components/MyCarousel.vue";
+  import VueMarkdown from 'vue-markdown';
+  import DataTable from '@/components/DataTable.vue';
+  import MyCarousel from '@/components/MyCarousel.vue';
 
   export default {
-    name: "MyCarouselView",
+    name: 'MyCarouselView',
     components: {
       VueMarkdown,
       DataTable,
@@ -205,10 +205,10 @@ import MyButton from "*.vue";import DataTable from "*.vue";
           {title: 'Description', value: 'description'},
         ],
         carouselSearch: {
-          fields: ['property']
-        }
-      }
-    }
+          fields: ['property'],
+        },
+      };
+    },
   };
 </script>
 
@@ -220,6 +220,7 @@ import MyButton from "*.vue";import DataTable from "*.vue";
 
   .head {
     text-align: center;
+    margin-top: 50px;
   }
 
   code {
@@ -240,7 +241,7 @@ import MyButton from "*.vue";import DataTable from "*.vue";
   }
   .sign{
     text-align: center;
-    font-family: "Book Antiqua";
+    font-family: "Book Antiqua",serif;
     color: darkblue;
   }
 </style>

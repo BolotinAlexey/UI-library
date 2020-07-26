@@ -10,6 +10,7 @@
 </template>
 <style>
   .about{
+    margin-top: 50px;
     text-align: left;
   }
   h1 {

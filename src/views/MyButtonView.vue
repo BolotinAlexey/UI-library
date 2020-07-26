@@ -154,12 +154,12 @@
 
 <script>
   import VueMarkdown from 'vue-markdown';
-  import MyButton from "@/components/MyButton.vue";
-  import DataTable from "@/components/DataTable.vue";
+  import MyButton from '@/components/MyButton.vue';
+  import DataTable from '@/components/DataTable.vue';
 
 
   export default {
-    name: "MyButtonView",
+    name: 'MyButtonView',
     components: {
       VueMarkdown,
       MyButton,
@@ -179,11 +179,11 @@
           {title: 'Description', value: 'description'},
         ],
         buttonSearch: {
-          fields: ['property']
-        }
-      }
-    }
-  }
+          fields: ['property'],
+        },
+      };
+    },
+  };
 </script>
 
 <style>
@@ -193,6 +193,7 @@
   }
   .head {
     text-align: center;
+    margin-top: 50px;
   }
   code {
     font-size: large;

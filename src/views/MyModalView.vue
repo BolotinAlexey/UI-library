@@ -27,28 +27,7 @@
     <div class="contCode">
       <code>&lt;MyModal&gt;&lt;/MyModal&gt;</code>
     </div>
-    <br>
-    <hr>
-    <br>
-    <Vue-markdown>
-      ## **Button text**
-    </Vue-markdown>
-    <p>
-      Changing the props "txtBtn" changes the text inside the button:
-    </p>
-    <div class="flex">
-      <MyModal :txtBtn="'Open window1'"></MyModal>
-      <MyModal :txtBtn="'Open window2'"></MyModal>
-      <MyModal :txtBtn="'Open window3'"></MyModal>
-    </div>
-    <br>
-    <div class="contCode">
-      <pre>
-        <code>&lt;MyModal :txtBtn="'Open window1'"&gt;&lt;/MyModal&gt;</code>
-        <code>&lt;MyModal :txtBtn="'Open window1'"&gt;&lt;/MyModal&gt;</code>
-        <code>&lt;MyModal :txtBtn="'Open window1'"&gt;&lt;/MyModal&gt;</code>
-      </pre>
-    </div>
+
     <br>
     <hr>
     <br>
@@ -62,28 +41,49 @@
     </p>
     <br>
     <div class="flex">
-      <MyModal :txtBtn="'Open pink window'"
-               :bgcolor="'pink'">
+      <MyModal :bgcolor="'pink'">
+        <template v-slot:trigger>
+          <MyButton color="danger">Open pink window
+          </MyButton>
+        </template>
       </MyModal>
-      <MyModal :txtBtn="'Open lightgreen window'"
-               :bgcolor="'lightgreen'">
+      <MyModal :bgcolor="'lightgreen'">
+        <template v-slot:trigger>
+          <MyButton color="success">Open lightgreen window
+          </MyButton>
+        </template>
       </MyModal>
-      <MyModal :txtBtn="'Open lightblue window'"
-               :bgcolor="'lightblue'">
+      <MyModal :bgcolor="'lightblue'">
+        <template v-slot:trigger>
+          <MyButton>Open lightblue window
+          </MyButton>
+        </template>
       </MyModal>
     </div>
     <div class="contCode">
      <pre>
        <code>
-          &lt;MyModal :txtBtn="'Open pink window'"
-                    :bgcolor="'pink'"&gt;
-          &lt;/MyModal&gt;
-          &lt;MyModal :txtBtn="'Open lightgreen window'"
-                    :bgcolor="'lightgreen'"&gt;
-          &lt;/MyModal&gt;
-          &lt;MyModal :txtBtn="'Open lightblue window'"
-                    :bgcolor="'lightblue'"&gt;
-         &lt;/MyModal&gt;
+
+&lt;div class="flex"&gt;
+  &lt;MyModal :bgcolor="'pink'"&gt;
+	   &lt;template v-slot:trigger&gt;
+		    &lt;MyButton color="danger"&gt;Open pink window
+	      &lt;/MyButton&gt;
+     &lt;/template&gt;
+  &lt;/MyModal&gt;
+  &lt;MyModal :bgcolor="'lightgreen'"&gt;
+	   &lt;template v-slot:trigger&gt;
+		    &lt;MyButton color="success"&gt;Open lightgreen window
+	      &lt;/MyButton&gt;
+     &lt;/template&gt;
+  &lt;/MyModal&gt;
+  &lt;MyModal :bgcolor="'lightblue'"&gt;
+	   &lt;template v-slot:trigger&gt;
+		   &lt;MyButton&gt;Open lightblue window
+	     &lt;/MyButton&gt;
+	   &lt;/template&gt;
+  &lt;/MyModal&gt;
+&lt;/div&gt;
        </code>
      </pre>
     </div>
@@ -98,12 +98,81 @@
       The component <code>&ltMyModal&gt</code> has a named header slot,
       the default (unnamed) slot for content (if available,
       it replaces the text "default text"), as well as the named slot "trigger",
-      in which you can set your button to open the window.
-      Here is an example of several buttons demonstrating various components:
+      in which you can set your buttons to open the window.
+      Here is an examples of several buttons demonstrating various components:
+    </p>
+    <br>
+    <br>
+    <Vue-markdown>
+      ### **Slot "trigger"**
+    </Vue-markdown>
+    <p>
+      An element is inserted into this slot,
+      when you click on which the window opens.
+      The default button is the inserted element,
+      but you can insert some image, text, and the like.
     </p>
     <div class="flex">
-      <MyModal
-        :txtBtn=btn>
+      <MyModal>
+        <template v-slot:trigger>
+          <MyButton color="success">Open window1
+          </MyButton>
+        </template>
+      </MyModal>
+      <MyModal>
+        <template v-slot:trigger>
+          <p>text</p>
+        </template>
+      </MyModal>
+      <MyModal>
+        <template v-slot:trigger>
+
+          <img src="../../assets/logo.png"></template>
+      </MyModal>
+    </div>
+    <br>
+    <div class="contCode">
+      <pre>
+        <code>
+          &lt;div class="flex"&gt;
+            &lt;MyModal&gt;
+              &lt;template v-slot:trigger&gt;
+                &lt;MyButton color="primary"&gt;Open window1
+                &lt;/MyButton&gt;
+              &lt;/template&gt;
+            &lt;/MyModal&gt;
+            &lt;MyModal&gt;
+              &lt;template v-slot:trigger&gt;
+                &lt;p&gt;text&lt;/p&gt;
+              &lt;/template&gt;
+            &lt;/MyModal&gt;
+            &lt;MyModal&gt;
+              &lt;template v-slot:trigger&gt;
+                &lt;img src="../../assets/logo.png"&gt;&lt;
+              &lt;/template&gt;
+            &lt;/MyModal&gt;
+          &lt;/div&gt;
+        </code>
+      </pre>
+    </div>
+
+    <br>
+    <br>
+    <Vue-markdown>
+      ### **Slot "header"**
+    </Vue-markdown>
+    <p>
+      The header slot is for introducing the title modal window.
+      By default, it is not present, but if present,
+      this text is displayed at the top center of the main content of the modal window:
+    </p>
+    <div class="flex">
+      <MyModal>
+        <template v-slot:trigger>
+          <MyButton color="warning">
+            {{btn}}
+          </MyButton>
+        </template>
         <template v-slot:header
                   class="header">
           <h2>{{btn}}</h2>
@@ -118,7 +187,12 @@
       </MyModal>
 
       <!--            Modal window with table inside-->
-      <MyModal :txt-btn=tbl>
+      <MyModal>
+        <template v-slot:trigger>
+          <MyButton color="danger">
+            {{tbl}}
+          </MyButton>
+        </template>
         <template v-slot:header
                   class="header">
           <h2>{{tbl}}</h2>
@@ -131,7 +205,12 @@
       </MyModal>
 
       <!--            Modal window with carousel inside-->
-      <MyModal :txt-btn=car>
+      <MyModal>
+        <template v-slot:trigger>
+          <MyButton color="dark">
+            {{car}}
+          </MyButton>
+        </template>
         <template v-slot:header
                   class="header">
           <h2>{{car}}</h2>
@@ -141,7 +220,12 @@
       </MyModal>
 
       <!--            Modal window with my grid inside-->
-      <MyModal :txt-btn=grid>
+      <MyModal>
+        <template v-slot:trigger>
+          <MyButton color="secondary">
+            {{grid}}
+          </MyButton>
+        </template>
         <template v-slot:header
                   class="header">
           <h2>{{grid}}</h2>
@@ -178,8 +262,7 @@
       ## **Table of props**
     </Vue-markdown>
     <DataTable :items="modalProperties"
-               :columns="modalColumns"
-               :search="modalSearch">
+               :columns="modalColumns">
     </DataTable>
     <br>
     <hr>
@@ -201,17 +284,17 @@
 
 <script>
   import VueMarkdown from 'vue-markdown';
-  import MyModal from '@/components/MyModal.vue'
-  import Navbar from "../components/Navbar";
-  import HelloWorld from "../components/HelloWorld";
-  import MyButton from "../components/MyButton";
-  import DataTable from "../components/DataTable";
-  import MyCarousel from "../components/MyCarousel";
-  import Row from "../components/grid/Row";
-  import Column from "../components/grid/Column";
+  import MyModal from '@/components/MyModal.vue';
+  import Navbar from '../components/Navbar';
+  import HelloWorld from '../components/HelloWorld';
+  import MyButton from '../components/MyButton';
+  import DataTable from '../components/DataTable';
+  import MyCarousel from '../components/MyCarousel';
+  import Row from '../components/grid/Row';
+  import Column from '../components/grid/Column';
 
   export default {
-    name: "MyModalView",
+    name: 'MyModalView',
     components: {
       VueMarkdown,
       Navbar,
@@ -221,7 +304,7 @@
       MyModal,
       MyCarousel,
       Row,
-      Column
+      Column,
     },
     data() {
       return {
@@ -250,10 +333,10 @@
         search1: {
           fields: ['name', 'surname'],
           filters: [
-            v => v.toLowerCase(),
-            // v => toKeyboardLayout(v, 'ru'),
-            // v => toKeyboardLayout(v, 'en')
-          ]
+            (v) => v.toLowerCase(),
+            // (v) => toKeyboardLayout(v, 'ru'),
+            // (v) => toKeyboardLayout(v, 'en')
+          ],
         },
         images: ['https://loremflickr.com/320/240/dog',
           'https://loremflickr.com/320/240/cat',
@@ -262,25 +345,21 @@
           'https://loremflickr.com/320/240/women'],
 
         modalProperties: [
-          {property: 'txtBtn', type: 'String', default: '"default text"',
-            description: 'Content contained in the button for opening a modal window'},
-          {property: 'bgcolor', type: 'String', default: '"wheat"',
-            description: 'Modal window background сolor'},
+          {
+            property: 'bgcolor', type: 'String', default: '"wheat"',
+            description: 'Modal window background сolor',
+          },
         ],
 
         modalColumns: [
-          {title: 'Property', value: 'property', sortable: true},
+          {title: 'Property', value: 'property'},
           {title: 'Type', value: 'type'},
           {title: 'Default', value: 'default'},
           {title: 'Description', value: 'description'},
         ],
-
-        modalSearch: {
-          fields: ['property']
-        }
-      }
+      };
     },
-  }
+  };
 </script>
 
 <style lang="less">
@@ -291,6 +370,7 @@
 
   .head {
     text-align: center;
+    margin-top: 50px;
   }
 
   code {

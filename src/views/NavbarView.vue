@@ -80,21 +80,21 @@
     <p>
       <code>txtcolor</code> is responsible for the text color of the <code>&lt;/Navbar&gt;</code>.
     </p>
-      <Navbar :style="{'position':'static'}"
-              bgcolor="yellow"
-              txtcolor="green">
-        <template v-slot:brand>
-          <img src="../assets/myLogo.png" alt="logo"/>
-        </template>
-        <template v-slot:menu>
-          <router-link to="/button">MyButton</router-link>
-          <router-link to="/grid">MyGrid</router-link>
-          <router-link to="/modal">MyModal</router-link>
-          <router-link to="/carousel">MyCarousel</router-link>
-          <router-link to="/table">MyTable</router-link>
-          <router-link to="/navbar">Navbar</router-link>
-        </template>
-      </Navbar>
+    <Navbar :style="{'position':'static'}"
+            bgcolor="yellow"
+            txtcolor="green">
+      <template v-slot:brand>
+        <img src="../assets/myLogo.png" alt="logo"/>
+      </template>
+      <template v-slot:menu>
+        <router-link to="/button">MyButton</router-link>
+        <router-link to="/grid">MyGrid</router-link>
+        <router-link to="/modal">MyModal</router-link>
+        <router-link to="/carousel">MyCarousel</router-link>
+        <router-link to="/table">MyTable</router-link>
+        <router-link to="/navbar">Navbar</router-link>
+      </template>
+    </Navbar>
     <div class="contCode">
       <pre>
         <code>
@@ -134,11 +134,11 @@
 
 <script>
   import VueMarkdown from 'vue-markdown';
-  import Navbar from "@/components/Navbar.vue";
-  import DataTable from "@/components/DataTable.vue";
+  import Navbar from '@/components/Navbar.vue';
+  import DataTable from '@/components/DataTable.vue';
 
   export default {
-    name: "MyButtonView",
+    name: 'MyButtonView',
     components: {
       VueMarkdown,
       Navbar,
@@ -147,14 +147,18 @@
     data() {
       return {
         propsProperties: [
-          {property: 'txtcolor', type: 'string',required: 'false', default: '"wheat"',
-            description: 'Text color of the Navbar.'},
-          {property: 'bgcolor', type: 'string',required: 'false', default: '"darkblue"',
-            description: 'Background color of the Navbar.'},
+          {
+            property: 'txtcolor', type: 'string', required: 'false', default: '"wheat"',
+            description: 'Text color of the Navbar.',
+          },
+          {
+            property: 'bgcolor', type: 'string', required: 'false', default: '"darkblue"',
+            description: 'Background color of the Navbar.',
+          },
         ],
-      }
-    }
-  }
+      };
+    },
+  };
 </script>
 
 <style lang="less">
@@ -164,6 +168,7 @@
 
   .head {
     text-align: center;
+    margin-top: 50px;
   }
 
   code {

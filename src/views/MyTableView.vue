@@ -220,15 +220,15 @@
     <div class="flex">
       <div>
         <h3>size=1</h3>
-      <DataTable :items="items1"
-                 :size=1>
-      </DataTable>
+        <DataTable :items="items1"
+                   :size=1>
+        </DataTable>
       </div>
       <div>
         <h3>size=4</h3>
-      <DataTable :items="items1"
-                 :size=4>
-      </DataTable>
+        <DataTable :items="items1"
+                   :size=4>
+        </DataTable>
       </div>
     </div>
 
@@ -269,106 +269,122 @@
 </template>
 
 <script lang="ts">
-import VueMarkdown from 'vue-markdown';
-import DataTable from '@/components/DataTable.vue';
+  import VueMarkdown from 'vue-markdown';
+  import DataTable from '@/components/DataTable.vue';
 
-function toKeyboardLayout(v: string, lang: string) {
-  const enArr = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 'a', 's', 'd',
-    'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.'];
-  const ruArr = ['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в',
-    'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю'];
-  const newV = Array<string>();
-  const arrV = v.toLowerCase().split('');
-  arrV.forEach((char) => {
-    if (langFun(lang, false).includes(char)) {
-      const index = langFun(lang, false).indexOf(char);
-      newV.push(langFun(lang, true)[index]);
+  function toKeyboardLayout(v: string, lang: string) {
+    const enArr = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 'a', 's', 'd',
+      'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.'];
+    const ruArr = ['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в',
+      'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю'];
+    const newV = Array<string>();
+    const arrV = v.toLowerCase().split('');
+    arrV.forEach((char) => {
+      if (langFun(lang, false).includes(char)) {
+        const index = langFun(lang, false).indexOf(char);
+        newV.push(langFun(lang, true)[index]);
+      }
+    });
+    return (arrV.length !== newV.length) ? v.toLowerCase() : newV.join('');
+
+    function langFun(langF: string, bool: boolean): string[] {
+      return ((langF === 'ru') && bool) ? ruArr : enArr;
     }
-  });
-  return (arrV.length !== newV.length) ? v.toLowerCase() : newV.join('');
-
-  function langFun(langF: string, bool: boolean): string[] {
-    return ((langF === 'ru') && bool) ? ruArr : enArr;
   }
-}
 
-export default {
-  name: 'MyTableView',
-  components: {
-    VueMarkdown,
-    DataTable,
-  },
-  data() {
-    return {
-      items1: [
-        {age: 40, name: 'Dickerson', surname: 'Macdonald'},
-        {age: 21, name: 'Larsen', surname: 'Shaw'},
-        {age: 89, name: 'Geneva', surname: 'Wilson'},
-        {age: 38, name: 'Jami', surname: 'Carney'},
-      ],
-      columns1: [
-        {title: 'Age', value: 'age', type: 'number', sortable: true},
-        {title: 'Name', value: 'name'},
-        {title: 'Surname', value: 'surname', sortable: true},
-      ],
-      items2: [
-        {id: 30050, name: 'Вася', surname: 'Петров', age: 12},
-        {id: 30051, name: 'Вася', surname: 'Васечкин', age: 15},
-        {id: 30052, name: 'Петя', surname: 'Васечкин', age: 16},
-        {id: 30053, name: 'Миша', surname: 'Иванов', age: 16},
-        {id: 30054, name: 'Маша', surname: 'Петрова', age: 13},
-        {id: 30055, name: 'Федя', surname: 'Федоров', age: 14},
-        {id: 30056, name: 'Фамильноеимя', surname: 'Фамильноеимя', age: 14},
-        {id: 30057, name: 'Adam', surname: 'Eva', age: 19},
-        {id: 30058, name: 'Eva', surname: 'Adam', age: 18},
-      ],
-      columns2: [
-        {title: 'Имя', value: 'name'},
-        {title: 'Фамилия', value: 'surname', sortable: true},
-        {title: 'Возраст', value: 'age', type: 'number', sortable: true},
-      ],
-      search1: {
-        fields: ['name', 'surname'],
-        filters: [
-          (v: string) => v.toLowerCase(),
-          (v: string) => toKeyboardLayout(v, 'ru'),
-          (v: string) => toKeyboardLayout(v, 'en'),
+  export default {
+    name: 'MyTableView',
+    components: {
+      VueMarkdown,
+      DataTable,
+    },
+    data() {
+      return {
+        items1: [
+          {age: 40, name: 'Dickerson', surname: 'Macdonald'},
+          {age: 21, name: 'Larsen', surname: 'Shaw'},
+          {age: 89, name: 'Geneva', surname: 'Wilson'},
+          {age: 38, name: 'Jami', surname: 'Carney'},
         ],
-      },
-      search2: {
-        fields: ['name'],
-      },
-      tableProperties: [
-        {property: 'items', type: 'Array<object>', required: 'true', default: '-',
-          description: 'Data to fill the body of the table.'},
-        {property: 'columns', type: 'Array<object>', required: 'false', default: '-',
-          description: 'Data to fill the head of the table.'},
-        {property: 'search', type: 'object', default: 'null', required: 'false',
-          description: 'Contains "fields" and "filters". Data for searching by keyword.'},
-        {property: 'bgcolor-head', type: 'string', required: 'false', default: '"aquamarine"',
-          description: 'Background color of the header.'},
-        {property: 'txtcolor-head', type: 'string', required: 'false', default: '"black"',
-          description: 'Text color of the header.'},
-        {property: 'bgcolor-body', type: 'string', required: 'false', default: '"antiquewhite"',
-          description: 'Background color of the body.'},
-        {property: 'txtcolor-body', type: 'string', required: 'false', default: '"darkblue"',
-          description: 'Text color of the body.'},
-        {property: 'size', type: 'number', required: 'false', default: '3',
-          description: 'Sets the size of the table.Range: 1 to 4'},
-      ],
-      tableColumns: [
-        {title: 'Property', value: 'property', sortable: true},
-        {title: 'Type', value: 'type'},
-        {title: 'Required', value: 'required'},
-        {title: 'Default', value: 'default'},
-        {title: 'Description', value: 'description'},
-      ],
-      tableSearch: {
-        fields: ['property'],
-      },
-    };
-  },
-};
+        columns1: [
+          {title: 'Age', value: 'age', type: 'number', sortable: true},
+          {title: 'Name', value: 'name'},
+          {title: 'Surname', value: 'surname', sortable: true},
+        ],
+        items2: [
+          {id: 30050, name: 'Вася', surname: 'Петров', age: 12},
+          {id: 30051, name: 'Вася', surname: 'Васечкин', age: 15},
+          {id: 30052, name: 'Петя', surname: 'Васечкин', age: 16},
+          {id: 30053, name: 'Миша', surname: 'Иванов', age: 16},
+          {id: 30054, name: 'Маша', surname: 'Петрова', age: 13},
+          {id: 30055, name: 'Федя', surname: 'Федоров', age: 14},
+          {id: 30056, name: 'Фамильноеимя', surname: 'Фамильноеимя', age: 14},
+          {id: 30057, name: 'Adam', surname: 'Eva', age: 19},
+          {id: 30058, name: 'Eva', surname: 'Adam', age: 18},
+        ],
+        columns2: [
+          {title: 'Имя', value: 'name'},
+          {title: 'Фамилия', value: 'surname', sortable: true},
+          {title: 'Возраст', value: 'age', type: 'number', sortable: true},
+        ],
+        search1: {
+          fields: ['name', 'surname'],
+          filters: [
+            (v: string) => v.toLowerCase(),
+            (v: string) => toKeyboardLayout(v, 'ru'),
+            (v: string) => toKeyboardLayout(v, 'en'),
+          ],
+        },
+        search2: {
+          fields: ['name'],
+        },
+        tableProperties: [
+          {
+            property: 'items', type: 'Array<object>', required: 'true', default: '-',
+            description: 'Data to fill the body of the table.',
+          },
+          {
+            property: 'columns', type: 'Array<object>', required: 'false', default: '-',
+            description: 'Data to fill the head of the table.',
+          },
+          {
+            property: 'search', type: 'object', default: 'null', required: 'false',
+            description: 'Contains "fields" and "filters". Data for searching by keyword.',
+          },
+          {
+            property: 'bgcolor-head', type: 'string', required: 'false', default: '"aquamarine"',
+            description: 'Background color of the header.',
+          },
+          {
+            property: 'txtcolor-head', type: 'string', required: 'false', default: '"black"',
+            description: 'Text color of the header.',
+          },
+          {
+            property: 'bgcolor-body', type: 'string', required: 'false', default: '"antiquewhite"',
+            description: 'Background color of the body.',
+          },
+          {
+            property: 'txtcolor-body', type: 'string', required: 'false', default: '"darkblue"',
+            description: 'Text color of the body.',
+          },
+          {
+            property: 'size', type: 'number', required: 'false', default: '3',
+            description: 'Sets the size of the table.Range: 1 to 4',
+          },
+        ],
+        tableColumns: [
+          {title: 'Property', value: 'property', sortable: true},
+          {title: 'Type', value: 'type'},
+          {title: 'Required', value: 'required'},
+          {title: 'Default', value: 'default'},
+          {title: 'Description', value: 'description'},
+        ],
+        tableSearch: {
+          fields: ['property'],
+        },
+      };
+    },
+  };
 </script>
 
 <style lang="less">
@@ -379,6 +395,7 @@ export default {
 
   .head {
     text-align: center;
+    margin-top: 50px;
   }
 
   code {
@@ -395,6 +412,7 @@ export default {
     @media (max-width: 980px) {
       flex-direction: column;
     }
+
     h3 {
       text-align: center;
     }

@@ -1,20 +1,20 @@
 <template>
-    <div class="row">
-        <slot></slot>
-    </div>
+  <div class="row">
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts">
-    export default {
-        name: "Row"
-    }
+  export default {
+    name: 'Row',
+  };
 </script>
 
 <style lang="less">
-    .row{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 
 </style>

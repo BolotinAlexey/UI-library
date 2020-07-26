@@ -151,17 +151,17 @@
 
 <script>
   import VueMarkdown from 'vue-markdown';
-  import Row from '@/components/grid/Row.vue'
-  import Column from '@/components/grid/Column.vue'
+  import Row from '@/components/grid/Row.vue';
+  import Column from '@/components/grid/Column.vue';
 
   export default {
-    name: "MyButtonView",
+    name: 'MyButtonView',
     components: {
       VueMarkdown,
       Row,
       Column,
     },
-  }
+  };
 </script>
 
 <style>
@@ -172,6 +172,7 @@
 
   .head {
     text-align: center;
+    margin-top: 50px;
   }
 
   code {

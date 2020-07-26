@@ -112,6 +112,7 @@ export default Vue.extend({
   }
 
   a {
+    color: wheat;
     text-decoration: none;
     margin: 4px;
 
